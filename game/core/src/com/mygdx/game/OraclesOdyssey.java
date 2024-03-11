@@ -5,31 +5,50 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 
-public class OraclesOdyssey extends ApplicationAdapter {
+public class OraclesOdyssey extends Game {
 	SpriteBatch batch;
-	Texture img;
-	OrthographicCamera camera;
-	
-	@Override
-	public void create () {
+	BitmapFont font;
+
+	public void create()
+	{
 		batch = new SpriteBatch();
-		camera = new OrthographicCamera();
-		camera.setToOrtho(false, 800, 480);
-		img = new Texture("badlogic.jpg");
+		// Use LibGDX's default Arial font.
+		font = new BitmapFont();
+		this.setScreen(new MainMenu(this));
 	}
 
-	@Override
-	public void render () {
-		ScreenUtils.clear(1, 0, 0, 1);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+	public void render()
+	{
+		super.render(); // important!
 	}
-	
-	@Override
-	public void dispose () {
+
+	public void dispose()
+	{
 		batch.dispose();
-		img.dispose();
+		font.dispose();
 	}
+//	@Override
+//	public void create () {
+//		batch = new SpriteBatch();
+//		camera = new OrthographicCamera();
+//		camera.setToOrtho(false, 800, 480);
+//		img = new Texture("badlogic.jpg");
+//	}
+//
+//	@Override
+//	public void render () {
+//		ScreenUtils.clear(1, 0, 0, 1);
+//		batch.begin();
+//		batch.draw(img, 0, 0);
+//		batch.end();
+//	}
+//
+//	@Override
+//	public void dispose () {
+//		batch.dispose();
+//		img.dispose();
+//	}
 }
