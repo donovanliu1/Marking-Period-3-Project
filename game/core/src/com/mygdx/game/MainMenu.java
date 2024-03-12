@@ -1,22 +1,27 @@
 package com.mygdx.game;
 
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import jdk.javadoc.internal.tool.Start;
+import com.badlogic.gdx.math.Rectangle;
 
 public class MainMenu implements Screen
 {
     private final OraclesOdyssey game;
     private OrthographicCamera camera;
     private Texture startButton = new Texture(Gdx.files.internal("startbutton.png"));
+    private int width = Gdx.graphics.getWidth();
+    private int height = Gdx.graphics.getHeight();
 
     public MainMenu(final OraclesOdyssey gam) {
         game = gam;
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
+        camera.setToOrtho(false, width, height);
     }
 
     @Override
@@ -25,16 +30,17 @@ public class MainMenu implements Screen
 
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
-
         game.batch.begin(); // STARTS
-        game.batch.draw(startButton, 10, 10);
-        game.font.draw(game.batch, "Welcome to Drop!!! ", 100, 150);
-        game.font.draw(game.batch, "Tap anywhere to begin!", 100, 100);
+        game.batch.draw(startButton, width/2 - 181, height/3);
+//        game.font.draw(game.batch, "Welcome to Drop!!! ", 100, 150);
+//        game.font.draw(game.batch, "Tap anywhere to begin!", 100, 100);
         game.batch.end(); // ENDS
-
+        Rectangle rect = new Rectangle(0,0,1,1);
         if (Gdx.input.isTouched()) {
-            game.setScreen  (new GameScreen(game));
-            dispose();
+            rect.setPosition(Gdx.input.getX(), Gdx.input.getY());
+            if (rect.overlaps(startButton.getB))
+//            game.setScreen(new GameScreen(game));
+//            dispose();
         }
     }
 
