@@ -1,6 +1,5 @@
 package com.mygdx.game;
 
-public class Note
-{
+public class Note {
 
 }
