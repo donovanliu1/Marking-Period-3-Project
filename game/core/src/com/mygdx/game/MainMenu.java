@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -17,6 +18,12 @@ public class MainMenu implements Screen
     private Texture startButton = new Texture(Gdx.files.internal("startbutton2.png"));
     private int width = Gdx.graphics.getWidth();
     private int height = Gdx.graphics.getHeight();
+    private int startX = width/2 - 181;
+    private int startY = height/3;
+    private int startButtonWidth = startButton.getWidth();
+    private int startButtonHeight = startButton.getHeight();
+//    private Drawable drawable = new TextureRegionDrawable(new TextureRegion(playTexture);
+//    private ImageButton playButton = new ImageButton(drawable);
 
     public MainMenu(final OraclesOdyssey gam) {
         game = gam;
@@ -27,7 +34,6 @@ public class MainMenu implements Screen
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0.2f, 1);
-
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin(); // STARTS
