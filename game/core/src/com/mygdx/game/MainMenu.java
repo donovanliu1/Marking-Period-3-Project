@@ -14,7 +14,7 @@ public class MainMenu implements Screen
 {
     private final OraclesOdyssey game;
     private OrthographicCamera camera;
-    private Texture startButton = new Texture(Gdx.files.internal("startbutton.png"));
+    private Texture startButton = new Texture(Gdx.files.internal("startbutton2.png"));
     private int width = Gdx.graphics.getWidth();
     private int height = Gdx.graphics.getHeight();
 
@@ -31,14 +31,31 @@ public class MainMenu implements Screen
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin(); // STARTS
-        game.batch.draw(startButton, width/2 - 181, height/3);
+        game.batch.draw(startButton, startX, startY);
 //        game.font.draw(game.batch, "Welcome to Drop!!! ", 100, 150);
 //        game.font.draw(game.batch, "Tap anywhere to begin!", 100, 100);
         game.batch.end(); // ENDS
-        Rectangle rect = new Rectangle(0,0,1,1);
+//        Rectangle rect = new Rectangle(0,0,1,1);
+
+//        System.out.println(width);
+//        System.out.println(height);
+
+        if(Gdx.input.isTouched())
+        {
+            System.out.println("\nstartx: " + startX);
+            System.out.println("starty: " + startY);
+            System.out.println("input x: " + Gdx.input.getX());
+            System.out.println("input y: " + Gdx.input.getY());
+            System.out.println("startWidth: " + startButtonHeight);
+            System.out.println("startHeight: " + startButtonHeight);
+
+            if (Gdx.input.getX() >= startX && Gdx.input.getX() <= startX + startButtonWidth && Gdx.input.getY() >= startY && Gdx.input.getY() <= startY + startButtonHeight)
+                System.out.println("asdasdasd");
+            dispose();
+        }
         if (Gdx.input.isTouched()) {
-            rect.setPosition(Gdx.input.getX(), Gdx.input.getY());
-            if (rect.overlaps(startButton.getB))
+//            rect.setPosition(Gdx.input.getX(), Gdx.input.getY());
+
 //            game.setScreen(new GameScreen(game));
 //            dispose();
         }
