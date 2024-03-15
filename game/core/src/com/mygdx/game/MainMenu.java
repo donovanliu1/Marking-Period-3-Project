@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import jdk.javadoc.internal.tool.Start;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -35,7 +37,6 @@ public class MainMenu implements Screen
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.setToOrtho(false, width, height);
     }
-
     @Override
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0.2f, 1);
