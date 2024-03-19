@@ -3,6 +3,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -22,11 +23,14 @@ public class MainMenuScreen implements Screen
     // CHANGE THE BELOW VARIABLES WHEN WE FIND THE SPRITE WE USE
     private Sprite menuButtonSprite = new Sprite(new Texture(Gdx.files.internal("startbutton.png")));
     private Sprite creditButtonSprite = new Sprite(new Texture(Gdx.files.internal("startbutton.png"))); // used to cite sources? idk maybe change to like tutorial
-
+    private Sprite birdSprite = new Sprite(new Texture(Gdx.files.internal("startbutton.png")));
     private int menuButtonX = centerWidth(menuButtonSprite) - width/4;
     private int menuButtonY = centerHeight(menuButtonSprite) - height/4;
     private int creditButtonX = centerWidth(creditButtonSprite) + width/4;
     private int creditButtonY = centerHeight(creditButtonSprite) - height/4;
+    private int birdX = centerWidth(birdSprite) - width - 300;
+    private int birdY = centerHeight(birdSprite) - height/4;
+
     private int count = 0;
     private Vector3 touchPoint = new Vector3();
 
@@ -47,30 +51,18 @@ public class MainMenuScreen implements Screen
         renderBackground(); // METHOD CREATED TO RENDER BACKGROUND
         renderButtons(); // CHECK THE METHOD TO SEE THE RENDERS
         game.batch.end(); // ENDS
-//        Rectangle rect = new Rectangle(0,0,1,1);
 
-//        System.out.println(width);
-//        System.out.println(height);
+
+
+
+
+
 
         if(Gdx.input.isTouched())
         {
             camera.unproject(touchPoint.set(Gdx.input.getX(),Gdx.input.getY(),0));
-//            if (Gdx.input.getX() >= startButtonX && Gdx.input.getX() <= startButtonX + startButtonSprite.getWidth() && Gdx.input.getY() >= startButtonY && Gdx.input.getY() <= startButtonY + startButtonSprite.getHeight())
-//            {
-//
-//                System.out.println("asdasdasd" + count);
-//                count++;
-//            }
-            startButtonSprite.getBoundingRectangle();
-            if (startButtonSprite.getBoundingRectangle().contains(touchPoint.x, touchPoint.y))
-            {
-                System.out.println("asdasdasd" + count);
-                System.out.println("touchpointx: " + touchPoint.x);
-                System.out.println("touchpointy: " + touchPoint.y);
-                count++;
-                dispose();
-            }
-            camera.project(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
+            manageMouseInputs();
+            //camera.project(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
         }
     }
 
@@ -105,11 +97,32 @@ public class MainMenuScreen implements Screen
 
     @Override
     public void dispose() {
+        startButtonSprite.getTexture().dispose();
+        menuButtonSprite.getTexture().dispose();
+        startBackgroundSprite.getTexture().dispose();
+        creditButtonSprite.getTexture().dispose();
     }
     public int centerWidth(Sprite sprite) {
         return (int) ((width - sprite.getWidth())/2);
     }
     public int centerHeight(Sprite sprite) {
         return (int) ((height - sprite.getHeight())/2);
+    }
+    public boolean inputDetected(Sprite sprite, int spritePosX, int spritePosY)  {
+        boolean xBound = touchPoint.x > spritePosX && touchPoint.x < spritePosX + sprite.getWidth();
+        boolean yBound = touchPoint.y > spritePosY && touchPoint.y < spritePosY + sprite.getHeight();
+        return xBound && yBound;
+    }
+    public void manageMouseInputs() {
+        if(inputDetected(startButtonSprite, startButtonX, startButtonY)) {
+            dispose();
+            game.setScreen(new GameScreen(game));
+        }
+        if (inputDetected(menuButtonSprite, menuButtonX, menuButtonY)) {
+            System.out.println("menu");
+        }
+        if (inputDetected(creditButtonSprite, creditButtonX, creditButtonY)) {
+            System.out.println("credit");
+        }
     }
 }
