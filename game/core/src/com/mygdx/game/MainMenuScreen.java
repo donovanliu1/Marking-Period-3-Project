@@ -3,12 +3,12 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
+import java.util.Random;
 
 public class MainMenuScreen implements Screen
 {
@@ -24,14 +24,18 @@ public class MainMenuScreen implements Screen
     private Sprite menuButtonSprite = new Sprite(new Texture(Gdx.files.internal("startbutton.png")));
     private Sprite creditButtonSprite = new Sprite(new Texture(Gdx.files.internal("startbutton.png"))); // used to cite sources? idk maybe change to like tutorial
     private Sprite birdSprite = new Sprite(new Texture(Gdx.files.internal("startbutton.png")));
+    private Sprite birdSprite2 = new Sprite(new Texture(Gdx.files.internal("startbutton.png")));
     private int menuButtonX = centerWidth(menuButtonSprite) - width/4;
     private int menuButtonY = centerHeight(menuButtonSprite) - height/4;
     private int creditButtonX = centerWidth(creditButtonSprite) + width/4;
     private int creditButtonY = centerHeight(creditButtonSprite) - height/4;
-    private int birdX = centerWidth(birdSprite) - width - 300;
+    private int birdX = centerWidth(birdSprite) + width/2 + 200;
     private int birdY = centerHeight(birdSprite) - height/4;
+    private int birdX2 = (int) birdSprite2.getWidth() * -1 - 100;
+    private int birdY2 = centerHeight(birdSprite2) - height/8;
 
     private int count = 0;
+    private Random random = new Random();
     private Vector3 touchPoint = new Vector3();
 
 //    private Drawable drawable = new TextureRegionDrawable(new TextureRegion(playTexture);
@@ -49,6 +53,7 @@ public class MainMenuScreen implements Screen
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin(); // STARTS
         renderBackground(); // METHOD CREATED TO RENDER BACKGROUND
+        renderBirds();
         renderButtons(); // CHECK THE METHOD TO SEE THE RENDERS
         game.batch.end(); // ENDS
 
@@ -74,7 +79,19 @@ public class MainMenuScreen implements Screen
         game.batch.draw(menuButtonSprite, menuButtonX, menuButtonY);
         game.batch.draw(creditButtonSprite, creditButtonX, creditButtonY);
     }
-
+    public void renderBirds() {
+        game.batch.draw(birdSprite, birdX, birdY);
+        game.batch.draw(birdSprite2, birdX2, birdY2);
+        updateBirds();
+        if(birdX < birdSprite.getWidth() * -1 - 100) {
+            birdX = centerWidth(birdSprite) + width/2 + 200;
+            birdY = random.nextInt((int) (0 + birdSprite.getHeight()), (int) (height - birdSprite.getHeight()));
+        }
+        if (birdX2 > centerWidth(birdSprite2) + width/2 + 200) {
+            birdY2 = random.nextInt((int) (0 + birdSprite2.getHeight()), (int) (height - birdSprite2.getHeight()));
+            birdX2 = (int) birdSprite2.getWidth() * -1 - 100;
+        }
+    }
     @Override
     public void resize(int width, int height) {
     }
@@ -116,7 +133,7 @@ public class MainMenuScreen implements Screen
     public void manageMouseInputs() {
         if(inputDetected(startButtonSprite, startButtonX, startButtonY)) {
             dispose();
-            game.setScreen(new GameScreen(game));
+            game.setScreen(new MainMenuScreen(game));
         }
         if (inputDetected(menuButtonSprite, menuButtonX, menuButtonY)) {
             System.out.println("menu");
@@ -124,5 +141,9 @@ public class MainMenuScreen implements Screen
         if (inputDetected(creditButtonSprite, creditButtonX, creditButtonY)) {
             System.out.println("credit");
         }
+    }
+    public void updateBirds() {
+        birdX -= 8;
+        birdX2 += 8;
     }
 }
