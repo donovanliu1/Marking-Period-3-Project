@@ -23,16 +23,17 @@ public class MainMenuScreen implements Screen
     // CHANGE THE BELOW VARIABLES WHEN WE FIND THE SPRITE WE USE
     private Sprite menuButtonSprite = new Sprite(new Texture(Gdx.files.internal("startbutton.png")));
     private Sprite creditButtonSprite = new Sprite(new Texture(Gdx.files.internal("startbutton.png"))); // used to cite sources? idk maybe change to like tutorial
-    private Sprite birdSprite = new Sprite(new Texture(Gdx.files.internal("startbutton.png")));
-    private Sprite birdSprite2 = new Sprite(new Texture(Gdx.files.internal("startbutton.png")));
+    private Sprite birdSprite = new Sprite(new Texture(Gdx.files.internal("badlogic.jpg")));
+    private Sprite birdSprite2 = new Sprite(new Texture(Gdx.files.internal("note1.png")));
+    private Sprite birdSprite3 = new Sprite(new Texture(Gdx.files.internal("startbutton.png")));
     private int menuButtonX = centerWidth(menuButtonSprite) - width/4;
     private int menuButtonY = centerHeight(menuButtonSprite) - height/4;
     private int creditButtonX = centerWidth(creditButtonSprite) + width/4;
     private int creditButtonY = centerHeight(creditButtonSprite) - height/4;
-    private int birdX = centerWidth(birdSprite) + width/2 + 200;
-    private int birdY = centerHeight(birdSprite) - height/4;
-    private int birdX2 = (int) birdSprite2.getWidth() * -1 - 100;
-    private int birdY2 = centerHeight(birdSprite2) - height/8;
+    private int[][] birdCoords = new int[][]{{centerWidth(birdSprite) + width/2 + 200, centerHeight(birdSprite) - height/4},
+            {(int) birdSprite2.getWidth() * -1 - 600, centerHeight(birdSprite2) - height/8},
+            {(int) birdSprite3.getWidth() * -1 - 550, centerHeight(birdSprite2) - height/4 + 600}};
+    
 
     private int count = 0;
     private Random random = new Random();
@@ -41,13 +42,15 @@ public class MainMenuScreen implements Screen
 //    private Drawable drawable = new TextureRegionDrawable(new TextureRegion(playTexture);
 //    private ImageButton playButton = new ImageButton(drawable);
 
-    public MainMenuScreen(final OraclesOdyssey gam) {
+    public MainMenuScreen(final OraclesOdyssey gam)
+    {
         game = gam;
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.setToOrtho(false, width, height);
     }
     @Override
-    public void render(float delta) {
+    public void render(float delta)
+    {
         ScreenUtils.clear(0, 0, 0.2f, 1);
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
@@ -71,25 +74,36 @@ public class MainMenuScreen implements Screen
         }
     }
 
-    public void renderBackground() {
+    public void renderBackground()
+    {
         game.batch.draw(startBackgroundSprite, 0, 0, width, height);
     }
-    public void renderButtons() {
+    public void renderButtons()
+    {
         game.batch.draw(startButtonSprite, startButtonX, startButtonY);
         game.batch.draw(menuButtonSprite, menuButtonX, menuButtonY);
         game.batch.draw(creditButtonSprite, creditButtonX, creditButtonY);
     }
-    public void renderBirds() {
-        game.batch.draw(birdSprite, birdX, birdY);
-        game.batch.draw(birdSprite2, birdX2, birdY2);
+    public void renderBirds()
+    {
+        game.batch.draw(birdSprite, birdCoords[0][0], birdCoords[0][1]);
+        game.batch.draw(birdSprite2, birdCoords[1][0], birdCoords[1][1]);
+        game.batch.draw(birdSprite3, birdCoords[2][0], birdCoords[2][1]);
         updateBirds();
-        if(birdX < birdSprite.getWidth() * -1 - 100) {
-            birdX = centerWidth(birdSprite) + width/2 + 200;
-            birdY = random.nextInt((int) (0 + birdSprite.getHeight()), (int) (height - birdSprite.getHeight()));
+        if(birdCoords[0][0] < birdSprite.getWidth() * -1 - 100)
+        {
+            birdCoords[0][0] = centerWidth(birdSprite) + width/2 + 200;
+            birdCoords[0][1] = random.nextInt((int) (0 + birdSprite.getHeight()), (int) (height - birdSprite.getHeight()));
         }
-        if (birdX2 > centerWidth(birdSprite2) + width/2 + 200) {
-            birdY2 = random.nextInt((int) (0 + birdSprite2.getHeight()), (int) (height - birdSprite2.getHeight()));
-            birdX2 = (int) birdSprite2.getWidth() * -1 - 100;
+        if (birdCoords[1][0] > centerWidth(birdSprite2) + width/2 + 200)
+        {
+            birdCoords[1][0] = (int) birdSprite2.getWidth() * -1 - 100;
+            birdCoords[1][1] = random.nextInt((int) (0 + birdSprite2.getHeight()), (int) (height - birdSprite2.getHeight()));
+        }
+        if (birdCoords[2][0] > centerWidth(birdSprite3) + width/2 + 200)
+        {
+            birdCoords[2][0] = (int) birdSprite3.getWidth() * -1 - 100;
+            birdCoords[2][1] = random.nextInt((int) (0 + birdSprite3.getHeight()), (int) (height - birdSprite3.getHeight()));
         }
     }
     @Override
@@ -125,12 +139,14 @@ public class MainMenuScreen implements Screen
     public int centerHeight(Sprite sprite) {
         return (int) ((height - sprite.getHeight())/2);
     }
-    public boolean inputDetected(Sprite sprite, int spritePosX, int spritePosY)  {
+    public boolean inputDetected(Sprite sprite, int spritePosX, int spritePosY)
+    {
         boolean xBound = touchPoint.x > spritePosX && touchPoint.x < spritePosX + sprite.getWidth();
         boolean yBound = touchPoint.y > spritePosY && touchPoint.y < spritePosY + sprite.getHeight();
         return xBound && yBound;
     }
-    public void manageMouseInputs() {
+    public void manageMouseInputs()
+    {
         if(inputDetected(startButtonSprite, startButtonX, startButtonY)) {
             dispose();
             game.setScreen(new MainMenuScreen(game));
@@ -142,8 +158,10 @@ public class MainMenuScreen implements Screen
             System.out.println("credit");
         }
     }
-    public void updateBirds() {
-        birdX -= 8;
-        birdX2 += 8;
+    public void updateBirds()
+    {
+        birdCoords[0][0] -= 10;
+        birdCoords[1][0] += 8;
+        birdCoords[2][0] += 12;
     }
 }
