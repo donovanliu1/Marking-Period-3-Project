@@ -6,6 +6,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
 import java.util.Random;
@@ -80,9 +81,9 @@ public class MainMenuScreen implements Screen
     }
     public void renderButtons()
     {
-        game.batch.draw(startButtonSprite, startButtonX, startButtonY);
-        game.batch.draw(menuButtonSprite, menuButtonX, menuButtonY);
-        game.batch.draw(creditButtonSprite, creditButtonX, creditButtonY);
+        game.batch.draw(startButtonSprite, startButtonX - startButtonSprite.getWidth()/3, startButtonY - startButtonSprite.getHeight()/3, startButtonSprite.getWidth() * 3, startButtonSprite.getHeight() * 3);
+        game.batch.draw(menuButtonSprite, menuButtonX - startButtonSprite.getWidth()/3, menuButtonY - menuButtonSprite.getHeight()/3, menuButtonSprite.getWidth() * 3, menuButtonSprite.getHeight() * 3);
+        game.batch.draw(creditButtonSprite, creditButtonX - creditButtonSprite.getWidth()/3, creditButtonY - creditButtonSprite.getHeight()/3, creditButtonSprite.getWidth() * 3, creditButtonSprite.getHeight() * 3);
     }
     public void renderBirds()
     {
@@ -90,6 +91,16 @@ public class MainMenuScreen implements Screen
         game.batch.draw(birdSprite2, birdCoords[1][0], birdCoords[1][1]);
         game.batch.draw(birdSprite3, birdCoords[2][0], birdCoords[2][1]);
         updateBirds();
+
+//        Rectangle birdRect = birdSprite.getBoundingRectangle().setPosition(birdSprite.getX(), birdSprite.getY());
+//        Rectangle birdRect2 = birdSprite2.getBoundingRectangle().setPosition(birdSprite2.getX(), birdSprite2.getY());;
+//        Rectangle birdRect3 = birdSprite3.getBoundingRectangle().setPosition(birdSprite.getX(), birdSprite.getY());;
+//        System.out.println(birdRect);
+//        System.out.println(birdRect2);
+//        System.out.println(birdRect3);
+//        boolean oneInTwo = birdRect.overlaps(birdRect2);
+//        boolean oneInThree = birdRect.overlaps(birdRect3);
+//        boolean twoInThree = birdRect2.overlaps(birdRect3);
         if(birdCoords[0][0] < birdSprite.getWidth() * -1 - 100)
         {
             birdCoords[0][0] = centerWidth(birdSprite) + width/2 + 200;
@@ -133,12 +144,18 @@ public class MainMenuScreen implements Screen
         startBackgroundSprite.getTexture().dispose();
         creditButtonSprite.getTexture().dispose();
     }
-    public int centerWidth(Sprite sprite) {
-        return (int) ((width - sprite.getWidth())/2);
+    public int centerWidth(Sprite sprite, int dilation) {
+        return (int) ((width - sprite.getWidth())/2) * dilation;
     }
+    public int centerHeight(Sprite sprite, int dilation) {
+        return (int) ((height - sprite.getHeight())/2) * dilation;
+    }public int centerWidth(Sprite sprite) {
+    return (int) ((width - sprite.getWidth())/2);
+}
     public int centerHeight(Sprite sprite) {
         return (int) ((height - sprite.getHeight())/2);
     }
+
     public boolean inputDetected(Sprite sprite, int spritePosX, int spritePosY)
     {
         boolean xBound = touchPoint.x > spritePosX && touchPoint.x < spritePosX + sprite.getWidth();
