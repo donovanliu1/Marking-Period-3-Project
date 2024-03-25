@@ -24,8 +24,8 @@ public class MainMenuScreen implements Screen
     private Sprite menuButtonSprite = new Sprite(new Texture(Gdx.files.internal("startbutton.png")));
     private Sprite creditButtonSprite = new Sprite(new Texture(Gdx.files.internal("startbutton.png"))); // used to cite sources? idk maybe change to like tutorial
     private Sprite birdSprite = new Sprite(new Texture(Gdx.files.internal("badlogic.jpg")));
-    private Sprite birdSprite2 = new Sprite(new Texture(Gdx.files.internal("note1.png")));
-    private Sprite birdSprite3 = new Sprite(new Texture(Gdx.files.internal("startbutton.png")));
+    private Sprite birdSprite2 = new Sprite(new Texture(Gdx.files.internal("startbutton2.png")));
+    private Sprite birdSprite3 = new Sprite(new Texture(Gdx.files.internal("startButton.png")));
     private int menuButtonX = centerWidth(menuButtonSprite) - width/4;
     private int menuButtonY = centerHeight(menuButtonSprite) - height/4;
     private int creditButtonX = centerWidth(creditButtonSprite) + width/4;
