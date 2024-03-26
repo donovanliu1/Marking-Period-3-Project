@@ -15,18 +15,18 @@ public class MainMenuScreen implements Screen
 {
     private final OraclesOdyssey game;
     private OrthographicCamera camera;
-    private Sprite startButtonSprite = new Sprite(new Texture(Gdx.files.internal("startbutton.png")));
-    private Sprite startBackgroundSprite = new Sprite(new Texture(Gdx.files.internal("startbackground.jpg")));
     private int width = Gdx.graphics.getWidth();
     private int height = Gdx.graphics.getHeight();
-    private int startButtonX = centerWidth(startButtonSprite);
-    private int startButtonY = centerHeight(startButtonSprite) + height/4;
     // CHANGE THE BELOW VARIABLES WHEN WE FIND THE SPRITE WE USE
+    private Sprite startButtonSprite = new Sprite(new Texture(Gdx.files.internal("startbutton.png")));
+    private Sprite startBackgroundSprite = new Sprite(new Texture(Gdx.files.internal("startbackground.jpg")));
     private Sprite menuButtonSprite = new Sprite(new Texture(Gdx.files.internal("startbutton.png")));
     private Sprite creditButtonSprite = new Sprite(new Texture(Gdx.files.internal("startbutton.png"))); // used to cite sources? idk maybe change to like tutorial
     private Sprite birdSprite = new Sprite(new Texture(Gdx.files.internal("badlogic.jpg")));
     private Sprite birdSprite2 = new Sprite(new Texture(Gdx.files.internal("startbutton2.png")));
     private Sprite birdSprite3 = new Sprite(new Texture(Gdx.files.internal("startButton.png")));
+    private int startButtonX = centerWidth(startButtonSprite);
+    private int startButtonY = centerHeight(startButtonSprite) + height/4;
     private int menuButtonX = centerWidth(menuButtonSprite) - width/4;
     private int menuButtonY = centerHeight(menuButtonSprite) - height/4;
     private int creditButtonX = centerWidth(creditButtonSprite) + width/4;
@@ -40,10 +40,7 @@ public class MainMenuScreen implements Screen
     private Random random = new Random();
     private Vector3 touchPoint = new Vector3();
 
-//    private Drawable drawable = new TextureRegionDrawable(new TextureRegion(playTexture);
-//    private ImageButton playButton = new ImageButton(drawable);
-
-    public MainMenuScreen(final OraclesOdyssey gam)
+    public MainMenuScreen(final OraclesOdyssey gam) // The create class
     {
         game = gam;
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -81,9 +78,9 @@ public class MainMenuScreen implements Screen
     }
     public void renderButtons()
     {
-        game.batch.draw(startButtonSprite, startButtonX - startButtonSprite.getWidth()/3, startButtonY - startButtonSprite.getHeight()/3, startButtonSprite.getWidth() * 3, startButtonSprite.getHeight() * 3);
-        game.batch.draw(menuButtonSprite, menuButtonX - startButtonSprite.getWidth()/3, menuButtonY - menuButtonSprite.getHeight()/3, menuButtonSprite.getWidth() * 3, menuButtonSprite.getHeight() * 3);
-        game.batch.draw(creditButtonSprite, creditButtonX - creditButtonSprite.getWidth()/3, creditButtonY - creditButtonSprite.getHeight()/3, creditButtonSprite.getWidth() * 3, creditButtonSprite.getHeight() * 3);
+        game.batch.draw(startButtonSprite, startButtonX - startButtonSprite.getWidth(), startButtonY - startButtonSprite.getHeight(), startButtonSprite.getWidth() * 3, startButtonSprite.getHeight() * 3);
+        game.batch.draw(menuButtonSprite, menuButtonX - startButtonSprite.getWidth(), menuButtonY - menuButtonSprite.getHeight(), menuButtonSprite.getWidth() * 3, menuButtonSprite.getHeight() * 3);
+        game.batch.draw(creditButtonSprite, creditButtonX - creditButtonSprite.getWidth(), creditButtonY - creditButtonSprite.getHeight(), creditButtonSprite.getWidth() * 3, creditButtonSprite.getHeight() * 3);
     }
     public void renderBirds()
     {
@@ -91,16 +88,6 @@ public class MainMenuScreen implements Screen
         game.batch.draw(birdSprite2, birdCoords[1][0], birdCoords[1][1]);
         game.batch.draw(birdSprite3, birdCoords[2][0], birdCoords[2][1]);
         updateBirds();
-
-//        Rectangle birdRect = birdSprite.getBoundingRectangle().setPosition(birdSprite.getX(), birdSprite.getY());
-//        Rectangle birdRect2 = birdSprite2.getBoundingRectangle().setPosition(birdSprite2.getX(), birdSprite2.getY());;
-//        Rectangle birdRect3 = birdSprite3.getBoundingRectangle().setPosition(birdSprite.getX(), birdSprite.getY());;
-//        System.out.println(birdRect);
-//        System.out.println(birdRect2);
-//        System.out.println(birdRect3);
-//        boolean oneInTwo = birdRect.overlaps(birdRect2);
-//        boolean oneInThree = birdRect.overlaps(birdRect3);
-//        boolean twoInThree = birdRect2.overlaps(birdRect3);
         if(birdCoords[0][0] < birdSprite.getWidth() * -1 - 100)
         {
             birdCoords[0][0] = centerWidth(birdSprite) + width/2 + 200;
@@ -165,8 +152,8 @@ public class MainMenuScreen implements Screen
     public void manageMouseInputs()
     {
         if(inputDetected(startButtonSprite, startButtonX, startButtonY)) {
+            game.setScreen(new GameScreen(game));
             dispose();
-            game.setScreen(new MainMenuScreen(game));
         }
         if (inputDetected(menuButtonSprite, menuButtonX, menuButtonY)) {
             System.out.println("menu");
