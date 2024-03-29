@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 
 public class Plane
@@ -8,7 +9,7 @@ public class Plane
     private int maxAmmo;
     private int hp;
     private int maxHP;
-    private Texture planeTexture = new Texture();
+    private Texture planeTexture = new Texture(Gdx.files.internal("ship_0000.png"));
 
     public Plane(int maxAmmo, int maxHP)
     {
