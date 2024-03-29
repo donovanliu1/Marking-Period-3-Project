@@ -1,11 +1,14 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.graphics.Texture;
+
 public class Plane
 {
     private int ammo;
     private int maxAmmo;
     private int hp;
     private int maxHP;
+    private Texture planeTexture = new Texture();
 
     public Plane(int maxAmmo, int maxHP)
     {
