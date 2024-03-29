@@ -13,7 +13,10 @@ public class Plane
         this.maxHP = maxHP;
     }
 
-
+    public void render()
+    {
+        
+    }
 
     public void setMaxAmmo(int max)
     {
