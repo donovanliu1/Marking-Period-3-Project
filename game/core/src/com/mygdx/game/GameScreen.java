@@ -8,6 +8,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
@@ -20,7 +21,9 @@ public class GameScreen implements Screen {
     private OrthographicCamera camera;
     private int width = Gdx.graphics.getWidth();
     private int height = Gdx.graphics.getHeight();
+    private Sprite testingsprite = new Sprite(new Texture(Gdx.files.internal("badlogic.jpg")));
     private Sprite gameBackground = new Sprite(new Texture(Gdx.files.internal("startbackground.jpg"))); // Change to game background
+    SpriteBatch spriteBatch = new SpriteBatch();
     public GameScreen(final OraclesOdyssey gam) // The create class
     {
         this.game = gam;
@@ -37,8 +40,9 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         ScreenUtils.clear(0, 0, 0.2f, 1);
         camera.update();
-        game.batch.draw(gameBackground, 0, 0, width, height);
         game.batch.begin();
+        game.batch.draw(gameBackground, 0, 0, width, height);
+        game.batch.end();
     }
 
     @Override

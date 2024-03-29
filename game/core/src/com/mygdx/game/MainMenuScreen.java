@@ -34,9 +34,7 @@ public class MainMenuScreen implements Screen
     private int[][] birdCoords = new int[][]{{centerWidth(birdSprite) + width/2 + 200, centerHeight(birdSprite) - height/4},
             {(int) birdSprite2.getWidth() * -1 - 600, centerHeight(birdSprite2) - height/8},
             {(int) birdSprite3.getWidth() * -1 - 550, centerHeight(birdSprite2) - height/4 + 600}};
-    
 
-    private int count = 0;
     private Random random = new Random();
     private Vector3 touchPoint = new Vector3();
 
