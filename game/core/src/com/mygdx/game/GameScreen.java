@@ -23,7 +23,6 @@ public class GameScreen implements Screen {
     private int height = Gdx.graphics.getHeight();
     private Sprite testingsprite = new Sprite(new Texture(Gdx.files.internal("badlogic.jpg")));
     private Sprite gameBackground = new Sprite(new Texture(Gdx.files.internal("startbackground.jpg"))); // Change to game background
-    SpriteBatch spriteBatch = new SpriteBatch();
     public GameScreen(final OraclesOdyssey gam) // The create class
     {
         this.game = gam;
@@ -42,7 +41,7 @@ public class GameScreen implements Screen {
         camera.update();
         game.batch.begin();
         game.batch.draw(gameBackground, 0, 0, width, height);
-        game.plane.update(spriteBatch);
+        game.plane.update(game.batch);
         game.batch.end();
     }
 

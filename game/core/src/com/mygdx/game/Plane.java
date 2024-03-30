@@ -18,6 +18,7 @@ public class Plane
     private TextureAtlas planeSprites = new TextureAtlas("atlas/planeSprites.atlas");
     private Sprite planeSprite = new Sprite(planeSprites.findRegion("ship_0000"));
 
+
     public Plane(int maxHP, int minDamage, int maxDamage)
     {
         ammo = Integer.MAX_VALUE;
@@ -40,11 +41,10 @@ public class Plane
 
     public void update(SpriteBatch batch)
     {
-        batch.begin();
         planeSprite.draw(batch);
-        planeSprite.setCenterX((float) Gdx.graphics.getWidth() /2);
-        planeSprite.setCenterY((float) Gdx.graphics.getHeight() /2);
-        batch.end();
+        planeSprite.setX((float) Gdx.graphics.getWidth() /2);
+        planeSprite.setY((float) Gdx.graphics.getHeight() /2);
+        planeSprite.setScale(4.0F);
     }
 
     public void setMaxAmmo(int max)
