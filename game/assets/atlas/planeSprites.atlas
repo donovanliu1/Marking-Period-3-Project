@@ -1,75 +1,51 @@
 planeSprites.png
 	size: 1024, 64
 	repeat: none
-ship
-	index: 0
+ship_0000
 	bounds: 2, 2, 32, 32
-ship
-	index: 1
+ship_0001
 	bounds: 36, 2, 32, 32
-ship
-	index: 2
+ship_0002
 	bounds: 70, 2, 32, 32
-ship
-	index: 3
+ship_0003
 	bounds: 104, 2, 32, 32
-ship
-	index: 4
+ship_0004
 	bounds: 138, 2, 32, 32
-ship
-	index: 5
+ship_0005
 	bounds: 172, 2, 32, 32
-ship
-	index: 6
+ship_0006
 	bounds: 206, 2, 32, 32
-ship
-	index: 7
+ship_0007
 	bounds: 240, 2, 32, 32
-ship
-	index: 8
+ship_0008
 	bounds: 274, 2, 32, 32
-ship
-	index: 9
+ship_0009
 	bounds: 308, 2, 32, 32
-ship
-	index: 10
+ship_0010
 	bounds: 342, 2, 32, 32
-ship
-	index: 11
+ship_0011
 	bounds: 376, 2, 32, 32
-ship
-	index: 12
+ship_0012
 	bounds: 410, 2, 32, 32
-ship
-	index: 13
+ship_0013
 	bounds: 444, 2, 32, 32
-ship
-	index: 14
+ship_0014
 	bounds: 478, 2, 32, 32
-ship
-	index: 15
+ship_0015
 	bounds: 512, 2, 32, 32
-ship
-	index: 16
+ship_0016
 	bounds: 546, 2, 32, 32
-ship
-	index: 17
+ship_0017
 	bounds: 580, 2, 32, 32
-ship
-	index: 18
+ship_0018
 	bounds: 614, 2, 32, 32
-ship
-	index: 19
+ship_0019
 	bounds: 648, 2, 32, 32
-ship
-	index: 20
+ship_0020
 	bounds: 682, 2, 32, 32
-ship
-	index: 21
+ship_0021
 	bounds: 716, 2, 32, 32
-ship
-	index: 22
+ship_0022
 	bounds: 750, 2, 32, 32
-ship
-	index: 23
+ship_0023
 	bounds: 784, 2, 32, 32

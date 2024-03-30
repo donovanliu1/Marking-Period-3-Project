@@ -40,9 +40,11 @@ public class Plane
 
     public void update(SpriteBatch batch)
     {
+        batch.begin();
         planeSprite.draw(batch);
-        planeSprite.setCenterX(Gdx.graphics.getWidth());
-        planeSprite.setCenterY(Gdx.graphics.getHeight());
+        planeSprite.setCenterX((float) Gdx.graphics.getWidth() /2);
+        planeSprite.setCenterY((float) Gdx.graphics.getHeight() /2);
+        batch.end();
     }
 
     public void setMaxAmmo(int max)

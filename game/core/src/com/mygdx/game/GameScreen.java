@@ -42,6 +42,7 @@ public class GameScreen implements Screen {
         camera.update();
         game.batch.begin();
         game.batch.draw(gameBackground, 0, 0, width, height);
+        game.plane.update(spriteBatch);
         game.batch.end();
     }
 
