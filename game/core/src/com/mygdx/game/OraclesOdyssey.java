@@ -11,12 +11,14 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 public class OraclesOdyssey extends Game {
 	SpriteBatch batch;
 	BitmapFont font;
+	Plane plane;
 
 	public void create()
 	{
 		batch = new SpriteBatch();
 		// Use LibGDX's default Arial font.
 		font = new BitmapFont();
+		plane = new Plane(100, 100);
 		this.setScreen(new MainMenuScreen(this));
 	}
 
