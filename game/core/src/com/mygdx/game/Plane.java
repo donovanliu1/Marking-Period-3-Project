@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Plane
 {
@@ -17,9 +18,9 @@ public class Plane
         this.maxHP = maxHP;
     }
 
-    public void render()
+    public void update(SpriteBatch batch)
     {
-        
+        batch.draw(planeTexture, (float) Gdx.graphics.getWidth() / 2, (float) Gdx.graphics.getHeight() / 2);
     }
 
     public void setMaxAmmo(int max)
