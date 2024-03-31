@@ -8,32 +8,17 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 public class Plane
 {
-    private int ammo;
-    private int maxAmmo;
     private int hp;
     private int maxHP;
     private int minDamage;
     private int maxDamage;
-    private TextureAtlas enemyHitExplosion;
     private TextureAtlas planeSprites = new TextureAtlas("atlas/planeSprites.atlas");
-    private Sprite planeSprite = new Sprite(planeSprites.findRegion("ship_0000"));
+    private Sprite planeSprite;
+    private Sprite bulletSprite;
 
 
-    public Plane(int maxHP, int minDamage, int maxDamage)
+    public Plane(int maxHP, int minDamage, int maxDamage) // constructor for enemy plane
     {
-        ammo = Integer.MAX_VALUE;
-        maxAmmo = Integer.MAX_VALUE;
-        hp = maxHP;
-        this.maxHP = maxHP;
-        this.minDamage = minDamage;
-        this.maxDamage = maxDamage;
-    }
-
-    public Plane(int maxAmmo, int maxHP, int minDamage, int maxDamage)
-    {
-        enemyHitExplosion = new TextureAtlas("atlas/enemyContactExplosion.atlas");
-        ammo = maxAmmo;
-        this.maxAmmo = maxAmmo;
         hp = maxHP;
         this.maxHP = maxHP;
         this.minDamage = minDamage;
@@ -48,23 +33,14 @@ public class Plane
         planeSprite.setScale(4.0F);
     }
 
-    public void setMaxAmmo(int max)
+    public void shoot()
     {
-        maxAmmo = max;
+        System.out.println("shoot");
     }
 
     public void setMaxHP(int maxHP)
     {
         this.maxHP = maxHP;
-    }
-
-    public int getAmmo()
-    {
-        return ammo;
-    }
-
-    public int getMaxAmmo() {
-        return maxAmmo;
     }
 
     public int getHp()
@@ -74,5 +50,20 @@ public class Plane
 
     public int getMaxHP() {
         return maxHP;
+    }
+
+    public TextureAtlas getPlaneSprites()
+    {
+        return planeSprites;
+    }
+
+    public void setPlaneSprite(String name)
+    {
+        planeSprite = new Sprite(planeSprites.findRegion(name));
+    }
+
+    public void setBulletSprite(String name)
+    {
+//        bulletSprite = new Sprite(bulletSprites.findRegion(name)); // commented out for now until i make the bulletSprites texture atlas
     }
 }
