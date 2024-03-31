@@ -1,11 +1,15 @@
 enemyContactExplosion.png
 	size: 128, 128
 	repeat: none
-explosion0
+explosion
+	index: 3
 	bounds: 2, 70, 32, 32
-explosion1
-	bounds: 36, 70, 32, 32
-explosion2
+explosion
+	index: 0
 	bounds: 2, 36, 32, 32
-explosion3
+explosion
+	index: 2
+	bounds: 36, 70, 32, 32
+explosion
+	index: 1
 	bounds: 2, 2, 32, 32
