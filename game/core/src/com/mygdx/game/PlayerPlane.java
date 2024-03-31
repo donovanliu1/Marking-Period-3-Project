@@ -40,9 +40,17 @@ public class PlayerPlane extends Plane
     {
         super.render(batch);
         stateTime += Gdx.graphics.getDeltaTime();
+        enemyHit(10, 10, batch);
 
-        TextureRegion currentFrame = enemyHitAnimation.getKeyFrame(stateTime, false);
-        batch.draw(currentFrame, 0, 0);  // testing
+    }
+
+    public void enemyHit(int x, int y, SpriteBatch batch)
+    {
+//        TextureRegion currentFrame = enemyHitAnimation.getKeyFrame(stateTime, false);
+        Sprite currentSprite = new Sprite(enemyHitAnimation.getKeyFrame(stateTime, false));
+        currentSprite.draw(batch);
+        currentSprite.setPosition(x,y);
+        currentSprite.setScale(4.0f);
     }
 
     @Override
