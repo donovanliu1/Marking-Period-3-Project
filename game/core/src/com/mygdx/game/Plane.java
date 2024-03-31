@@ -32,6 +32,7 @@ public class Plane
     public Plane(int maxAmmo, int maxHP, int minDamage, int maxDamage)
     {
         enemyHitExplosion = new TextureAtlas("atlas/enemyContactExplosion.atlas");
+        ammo = maxAmmo;
         this.maxAmmo = maxAmmo;
         hp = maxHP;
         this.maxHP = maxHP;
