@@ -45,6 +45,12 @@ public class PlayerPlane extends Plane
         batch.draw(currentFrame, 0, 0);  // testing
     }
 
+    @Override
+    public void setPlaneSprite(String name)
+    {
+        super.setPlaneSprite(name);
+    }
+
     public void setMaxAmmo(int max)
     {
         maxAmmo = max;
