@@ -10,7 +10,7 @@ public class Projectile
     private Sprite bulletSprite;
     private int x;
     private int y;
-    private int speed = 300;
+    private int speed = 500;
     private boolean remove = false;
     public Projectile(Sprite bulletSprite, int x, int y)
     {
