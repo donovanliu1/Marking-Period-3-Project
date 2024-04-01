@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.10.2" orientation="orthogonal" renderorder="right-down" width="48" height="80" tilewidth="16" tileheight="16" infinite="0" nextlayerid="5" nextobjectid="1">
+ <tileset firstgid="1" source="DesertTilemap16x16.tsx"/>
+ <layer id="1" name="Background" width="48" height="80">
+  <data encoding="base64" compression="zlib">
+   eJztw0ENAAAMA6HzUf8+Z2MPSFg1VVVVVVVVVVVVVVVVVVX1xQMuRJUQ
+  </data>
+ </layer>
+ <layer id="2" name="Buildings" width="48" height="80">
+  <data encoding="base64" compression="zlib">
+   eJztmstPFEEQxls8eiAcJGoCeOPM/4BefcABSNB4ERL0pt4M6hEVvSgPBR+8wRd48PHX+U2yFYtO9fTsTvX2NPSX/DK9vbO930zX1G5SNW+MeQKegmfmv+YTmX8JFsEr8DrB+XfgPVgD6wnO74F9cAC+JDj/C/wGf8DfBOdT12DGyyi4Aq4GWLsbugnGwHiAtZfBSkO406Lq+asN8/+4xWnyvw12GgL5r3r+rokjno+017sGroMbSmtLqpOPpGvn602DW+B2TY+h5Lv2OXAP3DfyXvj2Xjs26kjaC9/1h/ytald8L2LpA/goHF0Kuf8jnvel7/4KvglHl2Luf5NiL8utN+AtWIptpE19Ap/BBtgEW4pr+55NDX0HP8AhOAI/u/Cdp1UUK3RMTRQrdMzKytJRN3J9Vnid9H2cAJNgqmTcZN0FM2C2ZNxkpe7/AXgIHpWMs7KysrJOnhbAc8aLuHballSbo2tJQWW1xRT2osz/akRfVZW6f6rtpuqfVFxHqs8ASaqzr0R1VF/bsQ0kJlcPZypy9XDGUpU6FD/H1cMZS7wORXUGqi9LtSpXD2cs8ToU1RmovizVqprWw3ne+PsDz1mvh1tciuDXlt2TIOWXPsdnXfOdqpPcZvckSPmFfNrPurZ/jdwm5Rfyadectf1r5DYpv5BPu+as7d+X26T4suNfyi/cpz3W7GPw5TYpvqr05JT51+pjOAN6BM6yc6T4Kj7ny5/DbHyRjYeMXh9Drznel0XjXnaOFF/8/UK81i/V/S8b+Tehbh954YPHAI25Pym+bP+81m/X/Xmsaz+7hQ/p3tn++lvwz5F8MchjPYR/6d4NWF7ot59e83gu/g+U3QMe69r+L5jq/184/D+M6x5Iaw8p+3fFT6E+YY7G/D7ae0Voe5XkuneGeZTe146DTlXcuyr5O3QchJQvtzddZbk9q3P9A7i6zh4=
+  </data>
+ </layer>
+ <layer id="3" name="Misc" width="48" height="80">
+  <data encoding="base64" compression="zlib">
+   eJztWUty2zAM5SFyiW5iJ/Yky3rRdNcskuziC6SLbtuZrpuNc4AmF3BPkIPkRJEmwgwGBkCQgkSq1pvB0BRp8uFDUKRCOA6cFhznzGnuIVGKo2bPoTlx43vFyYzjxKfSBHrisjSBGTNmJMO6b+XkJ+t/TjrxnJ/25/ITNyZ+Zs1pFv6p+dHSn+uTk4cl/lPZkyT+ms9rel+zxA/gf9hn6ftzTb44BoD9F0I754/YmUoaKxXcPGdKmwVe3FKQwpXa+7yTXHxp5KqRrxmcarhzuGnktpG7Eec8J6WEoWKptnE944Cu36FiLKartC76QNLF058wh7YurPPVsL5T4ckZ22mV0DdnfGmM2Li5+kr6lNj/xoako8UftSGF4zJSt4LGzkL4LfXJBc3JtK7pE1u/Y4DmZFpP0acUdkqb5V3Myw+p8QRn+eeu3BGhsOz/Vv94xD6c5Vv+u64EeUP9QM9YbFngmf9+h0PeIC+on3RnQfXBtr9Q5uX0ztHrb+C5U/4YEFtPxjk4PbzON63994Hn/xoO1wP2FejX2rxPjvJY+5IPNMH+GfK8qN2BQpvkAyx7Iv+6/1Lb43jxzDGUM22TdAC+Eiy219Yyx0uDpg/Hn4OUNy1xL8V77r0s9QEVDhab1/SeMcS52wMaL9wWs/cyHNpbW7uxnPkj0g7AvKguEmeOq0es9P1WZI3pGNfcnFnzdxWIF+91ZImDZZDtbjkjYlj36dLfHa3vNCvUd42e41jy1mXs+wvrusi55ypxF1M6tjSsSf1nI7/Is5Q8leMTT/xp5NHQr6Y7OeqDFpwfpgSrH2b0hxYrU4gjLVbmOBoX3xr53JXXhbnk4D588G9lW5hLDh4a+Y7KqQHipvb44fbcFm38bFFZMzgdph4/U8Ba+K31qxmbrpwKXwDlC3V6lt4MT8UMycaUcw3fmXOxIfUp6zKjHrwDD5+GDQ==
+  </data>
+ </layer>
+</map>
