@@ -36,7 +36,6 @@ public class PlayerPlane extends Plane
         return false;
     }
 
-    @Override
     public void render(SpriteBatch batch)
     {
         getPlaneSprite().draw(batch);

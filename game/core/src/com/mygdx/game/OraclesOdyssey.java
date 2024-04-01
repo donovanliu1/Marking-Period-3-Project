@@ -18,7 +18,6 @@ public class OraclesOdyssey extends Game {
 		batch = new SpriteBatch();
 		// Use LibGDX's default Arial font.
 		font = new BitmapFont();
-		plane = new PlayerPlane(100, 100, 100, 100);
 		this.setScreen(new MainMenuScreen(this));
 	}
 

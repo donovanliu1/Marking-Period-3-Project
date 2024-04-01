@@ -25,9 +25,8 @@ public class GameScreen implements Screen {
     private OrthographicCamera camera;
     public static int width = Gdx.graphics.getWidth(); // const since it doesnt change
     public static int height = Gdx.graphics.getHeight(); // const since it doesnt change
-    private Sprite testingsprite = new Sprite(new Texture(Gdx.files.internal("badlogic.jpg")));
     private Sprite gameBackground = new Sprite(new Texture(Gdx.files.internal("startbackground.jpg"))); // Change to game background
-
+    PlayerPlane plane = new PlayerPlane(100, 100, 100, 100);
     ArrayList<Projectile> playerProjectile = new ArrayList<>();
 
     public GameScreen(final OraclesOdyssey gam) // The create class
@@ -45,16 +44,16 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && {
+        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
             System.out.println("shooting"); // this is test
-            playerProjectile.add(new Projectile(new Sprite(new Texture(Gdx.files.internal("bullets/enemyBulletNormal.png"))), game.plane., 1));
+            playerProjectile.add(new Projectile(new Sprite(new Texture(Gdx.files.internal("bullets/enemyBulletNormal.png"))), (int) plane.getPlaneSprite().getX(), (int) plane.getPlaneSprite().getY()));
         }
 
         ScreenUtils.clear(0, 0, 0.2f, 1);
         camera.update();
         game.batch.begin();
         game.batch.draw(gameBackground, 0, 0, width, height);
-        game.plane.render(game.batch);
+        plane.render(game.batch);
         game.batch.end();
     }
 
