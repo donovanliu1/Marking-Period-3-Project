@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -10,7 +11,7 @@ public class Plane
 {
     private int hp;
     private int maxHP;
-    private int minDamage;
+    private int minDamage; // if we run out of time we could make this just const
     private int maxDamage;
     private TextureAtlas planeSprites = new TextureAtlas("atlas/planeSprites.atlas");
     private Sprite planeSprite;
@@ -23,12 +24,12 @@ public class Plane
         this.minDamage = minDamage;
         this.maxDamage = maxDamage;
     }
-
+    // RENDER BULLETS BASED ON SPRITE AND NOT MOUSE POS
     public void render(SpriteBatch batch)
     {
         planeSprite.draw(batch);
-        planeSprite.setX((float) Gdx.graphics.getWidth() /2);
-        planeSprite.setY((float) Gdx.graphics.getHeight() /2);
+        planeSprite.setX((float) Gdx.input.getX());
+        planeSprite.setY((float) (GameScreen.height - Gdx.input.getY())); // plane is at mouse position
         planeSprite.setScale(4.0F);
     }
 

@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -19,8 +20,8 @@ import com.badlogic.gdx.utils.TimeUtils;
 public class GameScreen implements Screen {
     private final OraclesOdyssey game;
     private OrthographicCamera camera;
-    private int width = Gdx.graphics.getWidth();
-    private int height = Gdx.graphics.getHeight();
+    public static int width = Gdx.graphics.getWidth(); // const since it doesnt change
+    public static int height = Gdx.graphics.getHeight(); // const since it doesnt change
     private Sprite testingsprite = new Sprite(new Texture(Gdx.files.internal("badlogic.jpg")));
     private Sprite gameBackground = new Sprite(new Texture(Gdx.files.internal("startbackground.jpg"))); // Change to game background
     public GameScreen(final OraclesOdyssey gam) // The create class
@@ -28,6 +29,7 @@ public class GameScreen implements Screen {
         this.game = gam;
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.setToOrtho(false, width, height);
+        Gdx.graphics.setSystemCursor(Cursor.SystemCursor.None); // We dont want the cursor to show in the game
     }
 
     @Override

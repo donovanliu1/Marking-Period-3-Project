@@ -22,9 +22,9 @@ public class MainMenuScreen implements Screen
     private Sprite startBackgroundSprite = new Sprite(new Texture(Gdx.files.internal("startbackground.jpg")));
     private Sprite menuButtonSprite = new Sprite(new Texture(Gdx.files.internal("startbutton.png")));
     private Sprite creditButtonSprite = new Sprite(new Texture(Gdx.files.internal("startbutton.png"))); // used to cite sources? idk maybe change to like tutorial
-    private Sprite birdSprite = new Sprite(new Texture(Gdx.files.internal("badlogic.jpg")));
-    private Sprite birdSprite2 = new Sprite(new Texture(Gdx.files.internal("startbutton2.png")));
-    private Sprite birdSprite3 = new Sprite(new Texture(Gdx.files.internal("startButton.png")));
+    private Sprite birdSprite = new Sprite(new Texture(Gdx.files.internal("birdflying/BirdFlying1.png")));
+    private Sprite birdSprite2 = new Sprite(new Texture(Gdx.files.internal("birdflying/BirdFlying1.png")));
+    private Sprite birdSprite3 = new Sprite(new Texture(Gdx.files.internal("birdflying/BirdFlying1.png")));
     private int startButtonX = centerWidth(startButtonSprite);
     private int startButtonY = centerHeight(startButtonSprite) + height/4;
     private int menuButtonX = centerWidth(menuButtonSprite) - width/4;
@@ -55,13 +55,6 @@ public class MainMenuScreen implements Screen
         renderBirds();
         renderButtons(); // CHECK THE METHOD TO SEE THE RENDERS
         game.batch.end(); // ENDS
-
-
-
-
-
-
-
         if(Gdx.input.isTouched())
         {
             camera.unproject(touchPoint.set(Gdx.input.getX(),Gdx.input.getY(),0));
@@ -82,9 +75,9 @@ public class MainMenuScreen implements Screen
     }
     public void renderBirds()
     {
-        game.batch.draw(birdSprite, birdCoords[0][0], birdCoords[0][1]);
-        game.batch.draw(birdSprite2, birdCoords[1][0], birdCoords[1][1]);
-        game.batch.draw(birdSprite3, birdCoords[2][0], birdCoords[2][1]);
+        game.batch.draw(birdSprite, birdCoords[0][0], birdCoords[0][1], birdSprite.getWidth() * 8, birdSprite.getHeight() * 8);
+        game.batch.draw(birdSprite2, birdCoords[1][0], birdCoords[1][1], birdSprite2.getWidth() * 8, birdSprite2.getHeight() * 8);
+        game.batch.draw(birdSprite3, birdCoords[2][0], birdCoords[2][1], birdSprite3.getWidth() * 8, birdSprite3.getHeight() * 8);
         updateBirds();
         if(birdCoords[0][0] < birdSprite.getWidth() * -1 - 100)
         {
