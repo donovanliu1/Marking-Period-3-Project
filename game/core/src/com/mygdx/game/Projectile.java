@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -7,20 +8,26 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Projectile
 {
     private Sprite bulletSprite;
-
-    public Projectile(Sprite bulletSprite)
+    private int x;
+    private int y;
+    private int speed = 100;
+    private boolean remove = false;
+    public Projectile(Sprite bulletSprite, int x, int y)
     {
         this.bulletSprite = bulletSprite;
+        this.x = x;
+        this.y = y;
     }
-
-    public void create(int x, int y, SpriteBatch batch)
-    {
-        bulletSprite.draw(batch);
-        bulletSprite.setPosition(x, y);
+    // deltaTime used to limit amount of bullets on screen
+    // might have to make this a separate class for just player projectile
+    public void update(double deltaTime) { // this method will be used to update the bullets in an arraylist
+        y += speed * deltaTime;
+        if (y > Gdx.graphics.getHeight()) { // ?
+            remove = true;
+        }
     }
-
-    public void render(boolean isEnemy, boolean isTracking)
+    public void render(SpriteBatch batch)
     {
-        if (isEnemy)
+        batch.draw(bulletSprite, x, y);
     }
 }

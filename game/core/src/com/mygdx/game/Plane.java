@@ -25,14 +25,6 @@ public class Plane
         this.minDamage = minDamage;
         this.maxDamage = maxDamage;
     }
-    // RENDER BULLETS BASED ON SPRITE AND NOT MOUSE POS
-    public void render(SpriteBatch batch)
-    {
-        planeSprite.draw(batch);
-        planeSprite.setX((float) Gdx.input.getX());
-        planeSprite.setY((float) (GameScreen.height - Gdx.input.getY())); // plane is at mouse position
-        planeSprite.setScale(4.0F);
-    }
 
     public void shoot()
     {
@@ -51,6 +43,10 @@ public class Plane
 
     public int getMaxHP() {
         return maxHP;
+    }
+
+    public Sprite getPlaneSprite() {
+        return planeSprite;
     }
 
     public TextureAtlas getPlaneSprites()

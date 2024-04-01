@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
@@ -17,6 +18,8 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 
+import java.util.ArrayList;
+
 public class GameScreen implements Screen {
     private final OraclesOdyssey game;
     private OrthographicCamera camera;
@@ -24,6 +27,9 @@ public class GameScreen implements Screen {
     public static int height = Gdx.graphics.getHeight(); // const since it doesnt change
     private Sprite testingsprite = new Sprite(new Texture(Gdx.files.internal("badlogic.jpg")));
     private Sprite gameBackground = new Sprite(new Texture(Gdx.files.internal("startbackground.jpg"))); // Change to game background
+
+    ArrayList<Projectile> playerProjectile = new ArrayList<>();
+
     public GameScreen(final OraclesOdyssey gam) // The create class
     {
         this.game = gam;
@@ -39,6 +45,11 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && {
+            System.out.println("shooting"); // this is test
+            playerProjectile.add(new Projectile(new Sprite(new Texture(Gdx.files.internal("bullets/enemyBulletNormal.png"))), game.plane., 1));
+        }
+
         ScreenUtils.clear(0, 0, 0.2f, 1);
         camera.update();
         game.batch.begin();

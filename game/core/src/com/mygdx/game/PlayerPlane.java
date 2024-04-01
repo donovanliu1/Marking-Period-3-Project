@@ -24,21 +24,25 @@ public class PlayerPlane extends Plane
         stateTime = 0f;
     }
 
-    @Override
-    public void shoot() // we are using this
+    public boolean shootPlayer() // we are using this
     {
         if (ammo > 0)
         {
             ammo--;
             System.out.println("shoot");
+            return true;
         }
-        else System.out.println("out of ammo!"); // all of this is temp code to provide an outline
+        System.out.println("out of ammo!"); // all of this is temp code to provide an outline
+        return false;
     }
 
     @Override
     public void render(SpriteBatch batch)
     {
-        super.render(batch);
+        getPlaneSprite().draw(batch);
+        getPlaneSprite().setScale(4.0F);
+        getPlaneSprite().setX((float) Gdx.input.getX());
+        getPlaneSprite().setY((float) (GameScreen.height - Gdx.input.getY()));
         stateTime += Gdx.graphics.getDeltaTime();
         enemyHit(10, 10, batch);
 
