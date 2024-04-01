@@ -1,0 +1,15 @@
+bulletSprites.png
+size:512,512
+repeat:none
+enemyBulletNormal
+bounds:2,284,251,144
+enemyBulletSmall
+bounds:237,13,127,123
+enemyBulletStrong
+bounds:255,294,233,134
+playerBulletNormal
+bounds:2,138,249,144
+playerBulletSmall
+bounds:255,171,126,121
+playerBulletStrong
+bounds:2,2,233,134

@@ -27,7 +27,7 @@ public class GameScreen implements Screen {
     public GameScreen(final OraclesOdyssey gam) // The create class
     {
         this.game = gam;
-        camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        camera = new OrthographicCamera(width, height);
         camera.setToOrtho(false, width, height);
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.None); // We dont want the cursor to show in the game
     }
