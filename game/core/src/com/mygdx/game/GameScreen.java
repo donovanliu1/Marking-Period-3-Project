@@ -74,7 +74,7 @@ public class GameScreen implements Screen {
         ScreenUtils.clear(0, 0, 0.2f, 1);
         camera.update();
         game.batch.begin();
-        game.batch.draw(gameBackground, 0, 0, width, height);
+        game.batch.draw(gameBackground, 0, 0, width, 2700);
         for (Projectile projectile: playerProjectiles) {
             projectile.render(game.batch);
         }
