@@ -20,13 +20,16 @@ public class MainMenuScreen implements Screen
     // CHANGE THE BELOW VARIABLES WHEN WE FIND THE SPRITE WE USE
     private Sprite startButtonSprite = new Sprite(new Texture(Gdx.files.internal("startbutton.png")));
     private Sprite startBackgroundSprite = new Sprite(new Texture(Gdx.files.internal("startbackground.jpg")));
+    private Sprite titleSprite = new Sprite(new Texture(Gdx.files.internal("OracleOdyssey.png")));
     private Sprite menuButtonSprite = new Sprite(new Texture(Gdx.files.internal("startbutton.png")));
     private Sprite creditButtonSprite = new Sprite(new Texture(Gdx.files.internal("startbutton.png"))); // used to cite sources? idk maybe change to like tutorial
     private Sprite birdSprite = new Sprite(new Texture(Gdx.files.internal("birdflying/BirdFlying1.png")));
     private Sprite birdSprite2 = new Sprite(new Texture(Gdx.files.internal("birdflying/BirdFlying1.png")));
     private Sprite birdSprite3 = new Sprite(new Texture(Gdx.files.internal("birdflying/BirdFlying1.png")));
+    private int titleY = height - 400;
+    private int titleX = centerWidth(titleSprite);
     private int startButtonX = centerWidth(startButtonSprite);
-    private int startButtonY = centerHeight(startButtonSprite) + height/4;
+    private int startButtonY = centerHeight(startButtonSprite);
     private int menuButtonX = centerWidth(menuButtonSprite) - width/4;
     private int menuButtonY = centerHeight(menuButtonSprite) - height/4;
     private int creditButtonX = centerWidth(creditButtonSprite) + width/4;
@@ -66,6 +69,7 @@ public class MainMenuScreen implements Screen
     public void renderBackground()
     {
         game.batch.draw(startBackgroundSprite, 0, 0, width, height);
+        game.batch.draw(titleSprite, titleX, titleY);
     }
     public void renderButtons()
     {
