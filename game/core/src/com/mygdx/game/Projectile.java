@@ -18,4 +18,9 @@ public class Projectile
         bulletSprite.draw(batch);
         bulletSprite.setPosition(x, y);
     }
+
+    public void render(boolean isEnemy, boolean isTracking)
+    {
+        if (isEnemy)
+    }
 }
