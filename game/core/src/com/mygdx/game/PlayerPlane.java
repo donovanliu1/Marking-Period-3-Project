@@ -16,7 +16,7 @@ public class PlayerPlane extends Plane
     {
         super(maxHP, minDamage, maxDamage);
         enemyHitExplosion = new TextureAtlas("atlas/enemyContactExplosion.atlas");
-        enemyHitAnimation = new Animation<TextureRegion>(0.5f, enemyHitExplosion.findRegions("explosion"));
+        enemyHitAnimation = new Animation<TextureRegion>(0.09f, enemyHitExplosion.findRegions("explosion"));
         ammo = maxAmmo;
         this.maxAmmo = maxAmmo;
         setPlaneSprite("ship_0000"); // this will be removed once we make subclasses of this class - each subclass has its own sprite
@@ -48,9 +48,12 @@ public class PlayerPlane extends Plane
     {
 //        TextureRegion currentFrame = enemyHitAnimation.getKeyFrame(stateTime, false);
         Sprite currentSprite = new Sprite(enemyHitAnimation.getKeyFrame(stateTime, false));
-        currentSprite.draw(batch);
-        currentSprite.setPosition(x,y);
-        currentSprite.setScale(4.0f);
+        if (!enemyHitAnimation.isAnimationFinished(stateTime))
+        {
+            currentSprite.draw(batch);
+            currentSprite.setPosition(x, y);
+            currentSprite.setScale(4.0f);
+        }
     }
 
     @Override
