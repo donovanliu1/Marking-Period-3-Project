@@ -27,7 +27,7 @@ public class GameScreen implements Screen {
     public static int height = Gdx.graphics.getHeight(); // const since it doesnt change
     private Sprite gameBackground = new Sprite(new Texture(Gdx.files.internal("startbackground.jpg"))); // Change to game background
     PlayerPlane plane = new PlayerPlane(100, 100, 100, 100);
-    ArrayList<Projectile> playerProjectile = new ArrayList<>();
+    ArrayList<Projectile> playerProjectiles = new ArrayList<>();
 
     public GameScreen(final OraclesOdyssey gam) // The create class
     {
@@ -44,15 +44,30 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
+        Sprite playerProjectileSprite = new Sprite(new Texture(Gdx.files.internal("bullets/enemyBulletNormal.png")));
+        playerProjectileSprite.setSize(playerProjectileSprite.getWidth()/5, playerProjectileSprite.getHeight()/5);
+        if (Gdx.input.isButtonJustPressed(Input.Buttons.LEFT) && plane.shootPlayer()){
             System.out.println("shooting"); // this is test
-            playerProjectile.add(new Projectile(new Sprite(new Texture(Gdx.files.internal("bullets/enemyBulletNormal.png"))), (int) plane.getPlaneSprite().getX(), (int) plane.getPlaneSprite().getY()));
+            playerProjectiles.add(new Projectile(playerProjectileSprite, (int) plane.getPlaneSprite().getX() - 10, (int) plane.getPlaneSprite().getY() - 12));
+            playerProjectiles.add(new Projectile(playerProjectileSprite, (int) plane.getPlaneSprite().getX() - 56, (int) plane.getPlaneSprite().getY() + 4));
+            playerProjectiles.add(new Projectile(playerProjectileSprite, (int) plane.getPlaneSprite().getX() - 100, (int) plane.getPlaneSprite().getY() - 12));
         }
+        ArrayList<Projectile> projectilesToRemove = new ArrayList<>();
+        for (Projectile projectile: playerProjectiles) {
+            projectile.update(delta);
+            if (projectile.isRemove()) {
+                projectilesToRemove.add(projectile);
+            }
+        }
+        playerProjectiles.removeAll(projectilesToRemove);
 
         ScreenUtils.clear(0, 0, 0.2f, 1);
         camera.update();
         game.batch.begin();
         game.batch.draw(gameBackground, 0, 0, width, height);
+        for (Projectile projectile: playerProjectiles) {
+            projectile.render(game.batch);
+        }
         plane.render(game.batch);
         game.batch.end();
     }

@@ -10,7 +10,7 @@ public class Projectile
     private Sprite bulletSprite;
     private int x;
     private int y;
-    private int speed = 100;
+    private int speed = 300;
     private boolean remove = false;
     public Projectile(Sprite bulletSprite, int x, int y)
     {
@@ -21,7 +21,7 @@ public class Projectile
     // deltaTime used to limit amount of bullets on screen
     // might have to make this a separate class for just player projectile
     public void update(double deltaTime) { // this method will be used to update the bullets in an arraylist
-        y += speed * deltaTime;
+        y += (int) (speed * deltaTime);
         if (y > Gdx.graphics.getHeight()) { // ?
             remove = true;
         }
@@ -29,5 +29,9 @@ public class Projectile
     public void render(SpriteBatch batch)
     {
         batch.draw(bulletSprite, x, y);
+    }
+
+    public boolean isRemove() {
+        return remove;
     }
 }
