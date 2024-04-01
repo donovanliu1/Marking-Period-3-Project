@@ -1,21 +1,27 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.*;
 
 public class PlayerPlane extends Plane
 {
-    private TextureAtlas enemyHitExplosion;
+    private final TextureAtlas enemyHitExplosion;
+    public Animation<TextureRegion> enemyHitAnimation;
     private int ammo;
     private int maxAmmo;
+    private float stateTime;
 
     public PlayerPlane(int maxAmmo, int maxHP, int minDamage, int maxDamage)
     {
         super(maxHP, minDamage, maxDamage);
         enemyHitExplosion = new TextureAtlas("atlas/enemyContactExplosion.atlas");
+        enemyHitAnimation = new Animation<TextureRegion>(0.09f, enemyHitExplosion.findRegions("explosion"));
         ammo = maxAmmo;
         this.maxAmmo = maxAmmo;
         setPlaneSprite("ship_0000"); // this will be removed once we make subclasses of this class - each subclass has its own sprite
 //        super.setBulletSprite("bullet1"); // commented out until i make bulletSprites texture atlas
+        stateTime = 0f;
     }
 
     @Override
@@ -27,6 +33,33 @@ public class PlayerPlane extends Plane
             System.out.println("shoot");
         }
         else System.out.println("out of ammo!"); // all of this is temp code to provide an outline
+    }
+
+    @Override
+    public void render(SpriteBatch batch)
+    {
+        super.render(batch);
+        stateTime += Gdx.graphics.getDeltaTime();
+        enemyHit(10, 10, batch);
+
+    }
+
+    public void enemyHit(int x, int y, SpriteBatch batch)
+    {
+//        TextureRegion currentFrame = enemyHitAnimation.getKeyFrame(stateTime, false);
+        Sprite currentSprite = new Sprite(enemyHitAnimation.getKeyFrame(stateTime, false));
+        if (!enemyHitAnimation.isAnimationFinished(stateTime))
+        {
+            currentSprite.draw(batch);
+            currentSprite.setPosition(x, y);
+            currentSprite.setScale(4.0f);
+        }
+    }
+
+    @Override
+    public void setPlaneSprite(String name)
+    {
+        super.setPlaneSprite(name);
     }
 
     public void setMaxAmmo(int max)

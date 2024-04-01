@@ -16,7 +16,6 @@ public class Plane
     private Sprite planeSprite;
     private Sprite bulletSprite;
 
-
     public Plane(int maxHP, int minDamage, int maxDamage) // constructor for enemy plane
     {
         hp = maxHP;
@@ -25,7 +24,7 @@ public class Plane
         this.maxDamage = maxDamage;
     }
 
-    public void update(SpriteBatch batch)
+    public void render(SpriteBatch batch)
     {
         planeSprite.draw(batch);
         planeSprite.setX((float) Gdx.graphics.getWidth() /2);

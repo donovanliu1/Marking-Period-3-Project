@@ -1,0 +1,15 @@
+playerHitExplosion.png
+size:128,128
+repeat:none
+explosion
+index:3
+bounds:2,70,32,32
+explosion
+index:0
+bounds:2,36,32,32
+explosion
+index:2
+bounds:36,70,32,32
+explosion
+index:1
+bounds:2,2,32,32
