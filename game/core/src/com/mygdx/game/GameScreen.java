@@ -20,8 +20,8 @@ public class GameScreen implements Screen {
     public static int width = Gdx.graphics.getWidth(); // const since it doesnt change
     public static int height = Gdx.graphics.getHeight(); // const since it doesnt change
     private OrthogonalTiledMapRenderer tiledMapRenderer;
-    private TiledMap gameBackground;
-//    private Sprite gameBackground = new Sprite(new Texture(Gdx.files.internal("Desert_Map.png"))); // Change to game background
+//    private TiledMap gamea;
+    private Sprite gameBackground = new Sprite(new Texture(Gdx.files.internal("Desert_Map.png"))); // Change to game background
     private PlayerPlane plane = new PlayerPlane(100, 100, 100, 100);
 
     public static final double SHOOT_WAIT_TIME = 0.4; // If I'm not lazy enough ill change all the finals so they are capital
@@ -36,8 +36,9 @@ public class GameScreen implements Screen {
         camera.setToOrtho(false, width, height);
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.None); // We dont want the cursor to show in the game
 
-        gameBackground = new TmxMapLoader().load("maps/Desert_Map.tmx");
-        tiledMapRenderer = new OrthogonalTiledMapRenderer(gameBackground);
+        gameBackground = new Sprite(new Texture(Gdx.files.internal("Desert_Map.png")));
+//        gameBackground = new TmxMapLoader().load("maps/Desert_Map.tmx");
+//        tiledMapRenderer = new OrthogonalTiledMapRenderer(gameBackground);
     }
 
     @Override
@@ -73,13 +74,14 @@ public class GameScreen implements Screen {
         ScreenUtils.clear(0, 0, 0.2f, 1);
         camera.update();
         game.batch.begin();
+        game.batch.draw(gameBackground, 0, 0, width, height);
         for (Projectile projectile: playerProjectiles) {
             projectile.render(game.batch);
         }
         plane.render(game.batch);
         game.batch.end();
 
-        tiledMapRenderer.render();
+//        tiledMapRenderer.render();
     }
 
     @Override
