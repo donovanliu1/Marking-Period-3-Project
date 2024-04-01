@@ -12,6 +12,6 @@ public class EnemyPlane extends Plane
         super(maxHP, minDamage, maxDamage);
         playerHitExplosion = new TextureAtlas("atlas/playerHitExplosion.atlas");
         setPlaneSprite("ship_0012"); // this will be removed once we make subclasses of this class - each subclass has its own sprite
-//        setBulletSprite("bullet3"); // commented out until i make bulletSprites texture atlas
+        setBulletSprite("enemyBulletNormal"); // commented out until i make bulletSprites texture atlas
     }
 }

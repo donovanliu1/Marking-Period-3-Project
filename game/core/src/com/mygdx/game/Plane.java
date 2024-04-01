@@ -14,6 +14,7 @@ public class Plane
     private int minDamage; // if we run out of time we could make this just const
     private int maxDamage;
     private TextureAtlas planeSprites = new TextureAtlas("atlas/planeSprites.atlas");
+    private TextureAtlas bulletSprites = new TextureAtlas("atlas/bulletSprites.atlas");
     private Sprite planeSprite;
     private Sprite bulletSprite;
 
@@ -57,6 +58,11 @@ public class Plane
         return planeSprites;
     }
 
+    public TextureAtlas getBulletSprites()
+    {
+        return bulletSprites;
+    }
+
     public void setPlaneSprite(String name)
     {
         planeSprite = new Sprite(planeSprites.findRegion(name));
@@ -64,6 +70,11 @@ public class Plane
 
     public void setBulletSprite(String name)
     {
-//        bulletSprite = new Sprite(bulletSprites.findRegion(name)); // commented out for now until i make the bulletSprites texture atlas
+        bulletSprite = new Sprite(bulletSprites.findRegion(name));
+    }
+
+    public Sprite getBulletSprite()
+    {
+        return bulletSprite;
     }
 }

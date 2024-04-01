@@ -7,5 +7,6 @@ public class PlayerTankPlane extends PlayerPlane
     {
         super(maxAmmo, maxHP, minDamage, maxDamage);
         setPlaneSprite("ship_0000");
+        setBulletSprite("playerBulletSmall");
     }
 }
