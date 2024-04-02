@@ -6,11 +6,12 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
+import java.util.Random;
 
 import java.util.ArrayList;
 
@@ -19,13 +20,14 @@ public class GameScreen implements Screen {
     private OrthographicCamera camera;
     public static int width = Gdx.graphics.getWidth(); // const since it doesnt change
     public static int height = Gdx.graphics.getHeight(); // const since it doesnt change
+    private Random r = new Random();
 //    private OrthogonalTiledMapRenderer tiledMapRenderer;
 //    private TiledMap gamea;
     private Sprite gameBackground = new Sprite(new Texture(Gdx.files.internal("Desert_Map.png"))); // Change to game background
     private PlayerPlane plane = new PlayerNormalPlane();
 
-    public static final double SHOOT_WAIT_TIME = 0.25; // If I'm not lazy enough ill change all the finals so they are capital
-    public static final double RELOAD_WAIT_TIME = 3.0;
+    public static final double SHOOT_WAIT_TIME = 0.5; // If I'm not lazy enough ill change all the finals so they are capital
+    public static final double RELOAD_WAIT_TIME = 4.0;
 
     private double shootTimer;
     private double reloadTimer;
@@ -34,8 +36,9 @@ public class GameScreen implements Screen {
     private float gameBackgroundWidth = gameBackground.getWidth() * (1920/gameBackground.getWidth());
     private ArrayList<Projectile> playerProjectiles = new ArrayList<>();
     private ArrayList<Projectile> enemyProjectiles = new ArrayList<>();
-
+    private double stateTime = 1;
     public final static double TIME_BETWEEN_SPAWNS = 10.0;
+    BitmapFont scoreFont;
 
     // this is used for the levels - levels are premade
     // adds enemy planes to an arraylist of enemy planes that draw out the enemy planes onto the screen
@@ -44,8 +47,10 @@ public class GameScreen implements Screen {
             {new EnemyNormalPlane(), new EnemyNormalPlane(), new EnemyNormalPlane()},
             {new EnemyNormalPlane(), new EnemyTankPlane(), new EnemyNormalPlane(), new EnemyTankPlane()},
             {new EnemyGlassCannon(), new EnemyTankPlane(), new EnemyTankPlane(), new EnemyGlassCannon()},
-            {new EnemyGlassCannon(), new EnemyGlassCannon(), new EnemyGlassCannon()},
-            {new EnemyNormalPlane(), new EnemyTankPlane(), new EnemyTankPlane()}};
+            {new EnemyNormalPlane(), new EnemyNormalPlane(), new EnemyNormalPlane()},
+            {new EnemyTankPlane(), new EnemyTankPlane(), new EnemyTankPlane(), new EnemyTankPlane()},
+            {new EnemyTankPlane(), new EnemyTankPlane(), new EnemyTankPlane(), new EnemyTankPlane()},
+            {new EnemyGlassCannon(), new EnemyGlassCannon(), new EnemyGlassCannon()}};
 
     private ArrayList<EnemyPlane> currentEnemies = new ArrayList<>(); // stores current enemies on screen
 
@@ -57,7 +62,7 @@ public class GameScreen implements Screen {
         camera = new OrthographicCamera(width, height);
         camera.setToOrtho(false, width, height);
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.None); // We dont want the cursor to show in the game
-
+        scoreFont = new BitmapFont(Gdx.files.internal("fonts/score.fnt"));
         gameBackground = new Sprite(new Texture(Gdx.files.internal("Desert_Map.png")));
 //        gameBackground = new TmxMapLoader().load("maps/Desert_Map.tmx");
 //        tiledMapRenderer = new OrthogonalTiledMapRenderer(gameBackground);
@@ -70,8 +75,8 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        stateTime += delta;
         Sprite playerProjectileSprite = new Sprite(plane.getBulletSprites().findRegion("playerBulletNormal"));
-
         //Shooting
         shootTimer += delta;
         if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && shootTimer > SHOOT_WAIT_TIME && plane.getAmmo() > 0) {
@@ -104,6 +109,105 @@ public class GameScreen implements Screen {
         }
         playerProjectiles.removeAll(projectilesToRemove);
 
+        projectilesToRemove.clear();
+        float planeX = plane.getPlaneSprite().getX();
+        float planeY = plane.getPlaneSprite().getY();
+        if (stateTime > 0 && stateTime < 30) {
+            for (EnemyPlane enemyPlane: enemyPlanes1[0]) { // move this higher. used to render enemy projectiles
+                enemyPlane.update(delta);
+                if (enemyPlane.enemyShoot(delta) && !enemyPlane.getHit()) {
+                    float distanceX = enemyPlane.getPlaneSprite().getX() - planeX;
+                    float distanceY = enemyPlane.getPlaneSprite().getY() - planeY;
+                    float angle = 3.14f + MathUtils.atan2(distanceY, distanceX);
+                    enemyProjectiles.add(new Projectile(enemyPlane.getBulletSprite(), enemyPlane.getX() - 40, enemyPlane.getY() - 10, true, (int) angle));
+                }
+            }
+        }
+        if (stateTime > 5 && stateTime < 35) {
+            for (EnemyPlane enemyPlane: enemyPlanes1[1]) { // move this higher. used to render enemy projectiles
+                enemyPlane.update(delta);
+                if (enemyPlane.enemyShoot(delta) && !enemyPlane.getHit()) {
+                    float distanceX = enemyPlane.getPlaneSprite().getX() - planeX;
+                    float distanceY = enemyPlane.getPlaneSprite().getY() - planeY;
+                    float angle = 3.14f + MathUtils.atan2(distanceY, distanceX);
+                    enemyProjectiles.add(new Projectile(enemyPlane.getBulletSprite(), enemyPlane.getX() - 40, enemyPlane.getY() - 10, true, (int) angle));
+                }
+            }
+        }
+        if (stateTime > 10 && stateTime < 40) {
+            for (EnemyPlane enemyPlane: enemyPlanes1[2]) { // move this higher. used to render enemy projectiles
+                enemyPlane.update(delta);
+                if (enemyPlane.enemyShoot(delta) && !enemyPlane.getHit()) {
+                    float distanceX = enemyPlane.getPlaneSprite().getX() - planeX;
+                    float distanceY = enemyPlane.getPlaneSprite().getY() - planeY;
+                    float angle = 3.14f + MathUtils.atan2(distanceY, distanceX);
+                    enemyProjectiles.add(new Projectile(enemyPlane.getBulletSprite(), enemyPlane.getX() - 40, enemyPlane.getY() - 10, true, (int) angle));
+                }
+            }
+        }
+        if (stateTime > 15 && stateTime < 45) {
+            for (EnemyPlane enemyPlane: enemyPlanes1[3]) { // move this higher. used to render enemy projectiles
+                enemyPlane.update(delta);
+                if (enemyPlane.enemyShoot(delta) && !enemyPlane.getHit()) {
+                    float distanceX = enemyPlane.getPlaneSprite().getX() - planeX;
+                    float distanceY = enemyPlane.getPlaneSprite().getY() - planeY;
+                    float angle = 3.14f + MathUtils.atan2(distanceY, distanceX);
+                    enemyProjectiles.add(new Projectile(enemyPlane.getBulletSprite(), enemyPlane.getX() - 40, enemyPlane.getY() - 10, true, (int) angle));
+                }
+            }
+        }
+        if (stateTime > 20 && stateTime < 50) {
+            for (EnemyPlane enemyPlane: enemyPlanes1[4]) { // move this higher. used to render enemy projectiles
+                enemyPlane.update(delta);
+                if (enemyPlane.enemyShoot(delta) && !enemyPlane.getHit()) {
+                    float distanceX = enemyPlane.getPlaneSprite().getX() - planeX;
+                    float distanceY = enemyPlane.getPlaneSprite().getY() - planeY;
+                    float angle = 3.14f + MathUtils.atan2(distanceY, distanceX);
+                    enemyProjectiles.add(new Projectile(enemyPlane.getBulletSprite(), enemyPlane.getX() - 40, enemyPlane.getY() - 10, true, (int) angle));
+                }
+            }
+        }
+        if (stateTime > 25 && stateTime < 55) {
+            for (EnemyPlane enemyPlane: enemyPlanes1[5]) { // move this higher. used to render enemy projectiles
+                enemyPlane.update(delta);
+                if (enemyPlane.enemyShoot(delta) && !enemyPlane.getHit()) {
+                    float distanceX = enemyPlane.getPlaneSprite().getX() - planeX;
+                    float distanceY = enemyPlane.getPlaneSprite().getY() - planeY;
+                    float angle = 3.14f + MathUtils.atan2(distanceY, distanceX);
+                    enemyProjectiles.add(new Projectile(enemyPlane.getBulletSprite(), enemyPlane.getX() - 40, enemyPlane.getY() - 10, true, (int) angle));
+                }
+            }
+        }
+        if (stateTime > 30 && stateTime < 60) {
+            for (EnemyPlane enemyPlane: enemyPlanes1[6]) { // move this higher. used to render enemy projectiles
+                enemyPlane.update(delta);
+                if (enemyPlane.enemyShoot(delta) && !enemyPlane.getHit()) {
+                    float distanceX = enemyPlane.getPlaneSprite().getX() - planeX;
+                    float distanceY = enemyPlane.getPlaneSprite().getY() - planeY;
+                    float angle = 3.14f + MathUtils.atan2(distanceY, distanceX);
+                    enemyProjectiles.add(new Projectile(enemyPlane.getBulletSprite(), enemyPlane.getX() - 40, enemyPlane.getY() - 10, true, (int) angle));
+                }
+            }
+        }
+        if (stateTime > 50) {
+            for (EnemyPlane[] enemyPlanes: enemyPlanes1) {
+                for (EnemyPlane enemyPlane : enemyPlanes) {
+                    enemyPlane.setY(r.nextInt(1200, 1600));
+                    enemyPlane.setX(r.nextInt(0, 1920));
+                }
+            }
+        }
+        if (stateTime > 51) {
+            stateTime = 0;
+        }
+        for (Projectile projectile: enemyProjectiles) {
+            projectile.update(delta);
+            if (projectile.isRemove()) {
+                projectilesToRemove.add(projectile);
+            }
+        }
+        playerProjectiles.removeAll(projectilesToRemove);
+
         ScreenUtils.clear(0, 0, 0.2f, 1);
         camera.update();
         game.batch.begin();
@@ -115,7 +219,66 @@ public class GameScreen implements Screen {
         game.batch.draw(gameBackground, 0, backgroundOffset + gameBackgroundHeight, gameBackgroundWidth, gameBackgroundHeight);
         game.batch.draw(gameBackground, 0, backgroundOffset, gameBackgroundWidth, gameBackgroundHeight);
         for (Projectile projectile: playerProjectiles) {
+            for (EnemyPlane[] enemyPlanes: enemyPlanes1) {
+                for (EnemyPlane enemyPlane: enemyPlanes) {
+                    Sprite projectileSprite = projectile.getBulletSprite();
+                    Sprite enemySprite = enemyPlane.getPlaneSprite();
+                    if (new Rectangle(projectileSprite.getX(), projectileSprite.getY(), projectileSprite.getWidth(), projectileSprite.getHeight()).overlaps(new Rectangle(enemySprite.getX(), enemySprite.getY(), enemySprite.getWidth(), enemySprite.getHeight()))) {
+                        enemyPlane.setHit(true);
+                        enemyPlane.setY(-1000);
+                        projectilesToRemove.add(projectile);
+                    }
+                }
+            }
+        }
+        for (Projectile projectile: enemyProjectiles) {
+            Sprite projectileSprite = projectile.getBulletSprite();
+            Sprite planeSprite = plane.getPlaneSprite();
+            if (new Rectangle(projectileSprite.getX(), projectileSprite.getY(), projectileSprite.getWidth(), projectileSprite.getHeight()).overlaps(new Rectangle(planeSprite.getX(), planeSprite.getY(), planeSprite.getWidth(), planeSprite.getHeight()))) {
+                //game.setScreen(new LoseScreen(game));
+            }
+        }
+        playerProjectiles.removeAll(projectilesToRemove);
+        for (Projectile projectile: playerProjectiles) {
             projectile.render(game.batch);
+        }
+        for (Projectile projectile: enemyProjectiles) {
+            projectile.render(game.batch);
+        }
+        if (stateTime > 0 && stateTime < 30) {
+            for (EnemyPlane enemyPlane: enemyPlanes1[0]) {
+                enemyPlane.render(game.batch);
+            }
+        }
+        if (stateTime > 5 && stateTime < 35) {
+            for (EnemyPlane enemyPlane: enemyPlanes1[1]) {
+                enemyPlane.render(game.batch);
+            }
+        }
+        if (stateTime > 10 && stateTime < 40) {
+            for (EnemyPlane enemyPlane: enemyPlanes1[2]) {
+                enemyPlane.render(game.batch);
+            }
+        }
+        if (stateTime > 15 && stateTime < 45) {
+            for (EnemyPlane enemyPlane: enemyPlanes1[3]) {
+                enemyPlane.render(game.batch);
+            }
+        }
+        if (stateTime > 20 && stateTime < 50) {
+            for (EnemyPlane enemyPlane: enemyPlanes1[4]) {
+                enemyPlane.render(game.batch);
+            }
+        }
+        if (stateTime > 25 && stateTime < 55) {
+            for (EnemyPlane enemyPlane: enemyPlanes1[5]) {
+                enemyPlane.render(game.batch);
+            }
+        }
+        if (stateTime > 30 && stateTime < 60) {
+            for (EnemyPlane enemyPlane: enemyPlanes1[6]) {
+                enemyPlane.render(game.batch);
+            }
         }
         plane.render(game.batch);
         game.batch.end();

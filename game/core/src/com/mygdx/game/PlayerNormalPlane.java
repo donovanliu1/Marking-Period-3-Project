@@ -5,7 +5,7 @@ public class PlayerNormalPlane extends PlayerPlane // please find a better name 
 
     public PlayerNormalPlane() // temp constructor
     {
-        super(60, 100, 33, 36);
+        super(5, 100, 33, 36);
         setPlaneSprite("ship_0000");
         setBulletSprite("playerBulletNormal");
     }
