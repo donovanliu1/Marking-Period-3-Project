@@ -15,7 +15,7 @@ public class Projectile
     public Projectile(Sprite bulletSprite, int x, int y, boolean isEnemyBullet)
     {
         this.bulletSprite = bulletSprite;
-        this.bulletSprite.setScale(bulletSprite.getWidth()/2, bulletSprite.getHeight()/2);
+        this.bulletSprite.setSize(bulletSprite.getWidth()/2, bulletSprite.getHeight()/2);
         this.x = x;
         this.y = y;
         if (isEnemyBullet) speed *= -1;
@@ -30,7 +30,9 @@ public class Projectile
     }
     public void render(SpriteBatch batch)
     {
-        batch.draw(bulletSprite, x, y);
+        bulletSprite.draw(batch);
+        bulletSprite.setPosition(x, y);
+        // it used to be batch.draw(bulletSprite)
     }
 
     public boolean isRemove() {
