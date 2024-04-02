@@ -19,7 +19,7 @@ https://ar.inspiredpencil.com/pictures-2023/bullet-sprite
 https://pixeljoint.com/pixelart/84628.htm  
 https://www.redbubble.com/people/chocodole/works/32320243-game-over-pixel-font-with-gradient?finish=semi_gloss&p=poster&size=small
 https://pixelartmaker.com/art/7889a673e7838b4  
-# Background created thanks to Matthew Lin!
+# In-game background created thanks to Matthew Lin!
 
 ---
 ### This project wouldn't have been possible without the help of:
@@ -27,3 +27,5 @@ https://pixelartmaker.com/art/7889a673e7838b4
 https://youtube.com/playlist?list=PLrnO5Pu2zAHKAIjRtTLAXtZKMSA6JWnmf&si=Eqg0HIVWUgl-W2wR  
 https://stackoverflow.com/questions/42909776/how-to-infinitely-repeat-background-in-libgdx  
 https://youtube.com/playlist?list=PLfd-5Q3Fwq0WKrkEKw12nqpfER3MG5_Wi&si=TTHNxfFXdIMKzqu4
+
+me
