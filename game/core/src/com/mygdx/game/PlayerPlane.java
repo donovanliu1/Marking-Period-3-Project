@@ -83,4 +83,16 @@ public class PlayerPlane extends Plane
     public int getMaxAmmo() {
         return maxAmmo;
     }
+
+    @Override
+    public int getHp()
+    {
+        return super.getHp();
+    }
+
+    @Override
+    public int getMaxHP()
+    {
+        return super.getMaxHP();
+    }
 }

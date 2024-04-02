@@ -22,7 +22,7 @@ public class GameScreen implements Screen {
 //    private OrthogonalTiledMapRenderer tiledMapRenderer;
 //    private TiledMap gamea;
     private Sprite gameBackground = new Sprite(new Texture(Gdx.files.internal("Desert_Map.png"))); // Change to game background
-    private PlayerPlane plane = new PlayerPlane(5, 100, 100, 100);
+    private PlayerPlane plane = new PlayerNormalPlane();
 
     public static final double SHOOT_WAIT_TIME = 0.25; // If I'm not lazy enough ill change all the finals so they are capital
     public static final double RELOAD_WAIT_TIME = 3.0;
@@ -35,6 +35,7 @@ public class GameScreen implements Screen {
     private ArrayList<Projectile> playerProjectiles = new ArrayList<>();
     private ArrayList<Projectile> enemyProjectiles = new ArrayList<>();
 
+    public final static double TIME_BETWEEN_SPAWNS = 10.0;
 
     // this is used for the levels - levels are premade
     // adds enemy planes to an arraylist of enemy planes that draw out the enemy planes onto the screen
@@ -46,7 +47,7 @@ public class GameScreen implements Screen {
             {new EnemyGlassCannon(), new EnemyGlassCannon(), new EnemyGlassCannon()},
             {new EnemyNormalPlane(), new EnemyTankPlane(), new EnemyTankPlane()}};
 
-    private ArrayList<EnemyPlane> currentEnemies = new ArrayList<>();
+    private ArrayList<EnemyPlane> currentEnemies = new ArrayList<>(); // stores current enemies on screen
 
     public GameScreen(final OraclesOdyssey gam) // The create class
     {
