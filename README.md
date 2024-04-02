@@ -1,7 +1,7 @@
 # Oracle Odyssey
 
 ## A Unique take on the classic shmup!  
-## Defeat the as you dive deeper into enemy territory!'\
+## Defeat the eenemies as you dive deeper into enemy territory!'\
 Show those "greys" who's boss!
 ---
 ### source images/files used:
