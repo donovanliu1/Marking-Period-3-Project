@@ -24,7 +24,7 @@ public class GameScreen implements Screen {
     private Sprite gameBackground = new Sprite(new Texture(Gdx.files.internal("Desert_Map.png"))); // Change to game background
     private PlayerPlane plane = new PlayerPlane(100, 100, 100, 100);
 
-    public static final double SHOOT_WAIT_TIME = 0.4; // If I'm not lazy enough ill change all the finals so they are capital
+    public static final double SHOOT_WAIT_TIME = 0.3; // If I'm not lazy enough ill change all the finals so they are capital
     private double shootTimer;
     private float backgroundOffset = 0;
     private float gameBackgroundHeight = gameBackground.getHeight() * (1920/gameBackground.getWidth());
@@ -52,7 +52,6 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
         Sprite playerProjectileSprite = new Sprite(plane.getBulletSprites().findRegion("playerBulletNormal"));
-        playerProjectileSprite.setSize(playerProjectileSprite.getWidth()/5, playerProjectileSprite.getHeight()/5);
 
         //Shooting
         shootTimer += delta;
@@ -60,9 +59,9 @@ public class GameScreen implements Screen {
             System.out.println("shooting"); // this is test
             if (plane.shootPlayer()) {
                 shootTimer = 0;
-                playerProjectiles.add(new Projectile(playerProjectileSprite, (int) plane.getPlaneSprite().getX() - 10, (int) plane.getPlaneSprite().getY() - 12));
-                playerProjectiles.add(new Projectile(playerProjectileSprite, (int) plane.getPlaneSprite().getX() - 56, (int) plane.getPlaneSprite().getY() + 4));
-                playerProjectiles.add(new Projectile(playerProjectileSprite, (int) plane.getPlaneSprite().getX() - 100, (int) plane.getPlaneSprite().getY() - 12));
+                playerProjectiles.add(new Projectile(playerProjectileSprite, (int) plane.getPlaneSprite().getX() - 10, (int) plane.getPlaneSprite().getY() - 12, false));
+                playerProjectiles.add(new Projectile(playerProjectileSprite, (int) plane.getPlaneSprite().getX() - 56, (int) plane.getPlaneSprite().getY() + 4, false));
+                playerProjectiles.add(new Projectile(playerProjectileSprite, (int) plane.getPlaneSprite().getX() - 100, (int) plane.getPlaneSprite().getY() - 12, false));
             }
         }
         ArrayList<Projectile> projectilesToRemove = new ArrayList<>();
@@ -77,7 +76,7 @@ public class GameScreen implements Screen {
         ScreenUtils.clear(0, 0, 0.2f, 1);
         camera.update();
         game.batch.begin();
-        backgroundOffset-= 10;
+        backgroundOffset-= 2;
         if(backgroundOffset % (gameBackgroundHeight) == 0) {
             backgroundOffset = 0;
         }

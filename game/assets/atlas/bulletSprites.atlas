@@ -4,12 +4,12 @@ repeat:none
 enemyBulletNormal
 bounds:2,2,144,251
 enemyBulletSmall
-bounds:566,126,123,127
+bounds:566,189,64,64
 enemyBulletStrong
 bounds:294,20,134,233
 playerBulletNormal
 bounds:148,4,144,249
 playerBulletSmall
-bounds:691,127,121,126
+bounds:566,123,64,64
 playerBulletStrong
 bounds:430,20,134,233

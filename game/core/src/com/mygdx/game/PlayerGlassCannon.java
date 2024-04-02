@@ -3,8 +3,10 @@ package com.mygdx.game;
 public class PlayerGlassCannon extends PlayerPlane
 {
 
-    public PlayerGlassCannon(int maxAmmo, int maxHP, int minDamage, int maxDamage) // temp constructor
+    public PlayerGlassCannon()
     {
-        super(maxAmmo, maxHP, minDamage, maxDamage);
+        super(50, 60, 50, 59);
+        setPlaneSprite("ship_0007");
+        setBulletSprite("playerBulletStrong");
     }
 }
