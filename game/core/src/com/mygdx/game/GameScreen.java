@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
@@ -27,7 +28,7 @@ public class GameScreen implements Screen {
     private PlayerPlane plane = new PlayerNormalPlane();
 
     public static final double SHOOT_WAIT_TIME = 0.5; // If I'm not lazy enough ill change all the finals so they are capital
-    public static final double RELOAD_WAIT_TIME = 4.0;
+    public static final double RELOAD_WAIT_TIME = 3.0;
 
     private double shootTimer;
     private double reloadTimer;
@@ -36,9 +37,10 @@ public class GameScreen implements Screen {
     private float gameBackgroundWidth = gameBackground.getWidth() * (1920/gameBackground.getWidth());
     private ArrayList<Projectile> playerProjectiles = new ArrayList<>();
     private ArrayList<Projectile> enemyProjectiles = new ArrayList<>();
-    private double stateTime = 1;
+    private double stateTime = 0;
     public final static double TIME_BETWEEN_SPAWNS = 10.0;
     BitmapFont scoreFont;
+    int wave = 0;
 
     // this is used for the levels - levels are premade
     // adds enemy planes to an arraylist of enemy planes that draw out the enemy planes onto the screen
@@ -198,6 +200,7 @@ public class GameScreen implements Screen {
             }
         }
         if (stateTime > 51) {
+            wave++;
             stateTime = 0;
         }
         for (Projectile projectile: enemyProjectiles) {
@@ -218,6 +221,19 @@ public class GameScreen implements Screen {
         plane.enemyHit(10, 10, game.batch);
         game.batch.draw(gameBackground, 0, backgroundOffset + gameBackgroundHeight, gameBackgroundWidth, gameBackgroundHeight);
         game.batch.draw(gameBackground, 0, backgroundOffset, gameBackgroundWidth, gameBackgroundHeight);
+
+        GlyphLayout waveLayout = new GlyphLayout(scoreFont,"Wave: " + wave);
+        GlyphLayout ammoLayout = new GlyphLayout(scoreFont, "Ammo: " + plane.getAmmo() + "/" + plane.getMaxAmmo());
+        GlyphLayout reloadingLayout = new GlyphLayout(scoreFont, "Reloading...");
+        scoreFont.draw(game.batch, waveLayout, width/ 2 - waveLayout.width / 2, height - waveLayout.height - 10);
+        if(plane.getAmmo() > 0) {
+            scoreFont.draw(game.batch, ammoLayout, 100, 100);
+        }
+        else {
+            scoreFont.draw(game.batch, reloadingLayout, 100, 100);
+        }
+
+
         for (Projectile projectile: playerProjectiles) {
             for (EnemyPlane[] enemyPlanes: enemyPlanes1) {
                 for (EnemyPlane enemyPlane: enemyPlanes) {
@@ -235,7 +251,7 @@ public class GameScreen implements Screen {
             Sprite projectileSprite = projectile.getBulletSprite();
             Sprite planeSprite = plane.getPlaneSprite();
             if (new Rectangle(projectileSprite.getX(), projectileSprite.getY(), projectileSprite.getWidth(), projectileSprite.getHeight()).overlaps(new Rectangle(planeSprite.getX(), planeSprite.getY(), planeSprite.getWidth(), planeSprite.getHeight()))) {
-                //game.setScreen(new LoseScreen(game));
+                game.setScreen(new LoseScreen(game));
             }
         }
         playerProjectiles.removeAll(projectilesToRemove);
