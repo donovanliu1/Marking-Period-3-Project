@@ -1,11 +1,15 @@
 # Oracle Odyssey
 
 ## A Unique take on the classic shmup!  
-## Defeat the eenemies as you dive deeper into enemy territory!'\
-Show those "greys" who's boss!
+## Defeat the eenemies as you dive deeper into enemy territory!  
+### Show those "greys" who's boss!
+## How to play:  
+Move your plane by moving your mouse curser!  
+shoot enemies by pressing your left mouse button!  
+Avoid enemy bullets! They will crash your plane!  
+Shoot enemies and blow their planes up! They can't shoot at you if they cant shoot at all!
 ---
 ### source images/files used:
-
 
 https://craftpix.net/product/desert-pixel-art-environment-assets-pack/
 https://www.fontspace.com/minecraft-font-f28180
@@ -28,4 +32,3 @@ https://youtube.com/playlist?list=PLrnO5Pu2zAHKAIjRtTLAXtZKMSA6JWnmf&si=Eqg0HIVW
 https://stackoverflow.com/questions/42909776/how-to-infinitely-repeat-background-in-libgdx  
 https://youtube.com/playlist?list=PLfd-5Q3Fwq0WKrkEKw12nqpfER3MG5_Wi&si=TTHNxfFXdIMKzqu4
 
-me
