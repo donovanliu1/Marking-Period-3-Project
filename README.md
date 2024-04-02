@@ -19,7 +19,7 @@ https://ar.inspiredpencil.com/pictures-2023/bullet-sprite
 https://pixeljoint.com/pixelart/84628.htm  
 https://www.redbubble.com/people/chocodole/works/32320243-game-over-pixel-font-with-gradient?finish=semi_gloss&p=poster&size=small
 https://pixelartmaker.com/art/7889a673e7838b4  
-# Background created thanks to Matthew Lin!
+# In-game background created thanks to Matthew Lin!
 
 ---
 ### This project wouldn't have been possible without the help of:
