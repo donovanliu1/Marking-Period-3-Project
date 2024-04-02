@@ -3,6 +3,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -18,6 +19,7 @@ public class MainMenuScreen implements Screen
 {
     private final OraclesOdyssey game;
     private OrthographicCamera camera;
+    private Music music = Gdx.audio.newMusic(Gdx.files.internal("Music/mainMenuMusic.mp3"));
     private int width = Gdx.graphics.getWidth();
     private int height = Gdx.graphics.getHeight();
     // CHANGE THE BELOW VARIABLES WHEN WE FIND THE SPRITE WE USE
@@ -33,16 +35,12 @@ public class MainMenuScreen implements Screen
     private int titleX = centerWidth(titleSprite);
     private int startButtonX = centerWidth(startButtonSprite);
     private int startButtonY = centerHeight(startButtonSprite) - 200;
-//    private int menuButtonX = centerWidth(menuButtonSprite) - width/4;
-//    private int menuButtonY = centerHeight(menuButtonSprite) - height/4;
-//    private int creditButtonX = centerWidth(creditButtonSprite) + width/4;
-//    private int creditButtonY = centerHeight(creditButtonSprite) - height/4;
 
     private TextureAtlas birdFlying = new TextureAtlas("atlas/birdAtlas.atlas");
     private TextureAtlas rBirdFlying = new TextureAtlas("atlas/rBirdAtlas.atlas");
 
-    private Animation<TextureRegion> birdAnimation = new Animation<TextureRegion>(0.2f, birdFlying.findRegion("BirdFlying"));
-    private Animation<TextureRegion> rBirdAnimation = new Animation<TextureRegion>(0.2f, rBirdFlying.findRegion("rBirdFlying"));
+    private Animation<TextureRegion> birdAnimation = new Animation<TextureRegion>(0.09f, birdFlying.findRegion("BirdFlying"));
+    private Animation<TextureRegion> rBirdAnimation = new Animation<TextureRegion>(0.09f, rBirdFlying.findRegion("rBirdFlying"));
     private float stateTime;
 
     private int[][] birdCoords = new int[][]{{centerWidth(birdSprite) + width/2 + 200, centerHeight(birdSprite) - height/4},
@@ -58,6 +56,9 @@ public class MainMenuScreen implements Screen
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.setToOrtho(false, width, height);
         stateTime = 0f;
+        music.setLooping(true);
+        music.setVolume(0.35f);
+        music.play();
     }
     @Override
     public void render(float delta)
@@ -66,9 +67,10 @@ public class MainMenuScreen implements Screen
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin(); // STARTS
+        stateTime += delta;
         renderBackground(); // METHOD CREATED TO RENDER BACKGROUND
-        renderBirds(); // too much hassle for something that people are only going to see for 2 seconds
-        stateTime += Gdx.graphics.getDeltaTime();
+//        renderBirds(); // too much hassle for something that people are only going to see for 2 seconds
+
         renderButtons(); // CHECK THE METHOD TO SEE THE RENDERS
         game.batch.end(); // ENDS
         if(Gdx.input.isTouched())
@@ -92,9 +94,9 @@ public class MainMenuScreen implements Screen
     }
     public void renderBirds()
     {
-        Sprite currentBirdSprite = new Sprite(birdAnimation.getKeyFrame(stateTime));
-        Sprite currentBirdSprite2 = new Sprite(rBirdAnimation.getKeyFrame(stateTime));
-        Sprite currentBirdSprite3 = new Sprite(rBirdAnimation.getKeyFrame(stateTime));
+        Sprite currentBirdSprite = new Sprite(birdAnimation.getKeyFrame(stateTime, true));
+        Sprite currentBirdSprite2 = new Sprite(rBirdAnimation.getKeyFrame(stateTime, true));
+        Sprite currentBirdSprite3 = new Sprite(rBirdAnimation.getKeyFrame(stateTime, true));
         game.batch.draw(currentBirdSprite, birdCoords[0][0], birdCoords[0][1], birdSprite.getWidth() * 8, birdSprite.getHeight() * 8);
         game.batch.draw(currentBirdSprite2, birdCoords[1][0], birdCoords[1][1], birdSprite2.getWidth() * 8, birdSprite2.getHeight() * 8);
         game.batch.draw(currentBirdSprite3, birdCoords[2][0], birdCoords[2][1], birdSprite3.getWidth() * 8, birdSprite3.getHeight() * 8);
@@ -168,15 +170,11 @@ public class MainMenuScreen implements Screen
     public void manageMouseInputs()
     {
         if(inputDetected(startButtonSprite, startButtonX, startButtonY)) {
+            music.stop();
+            music.dispose();
             game.setScreen(new GameScreen(game));
             dispose();
         }
-//        if (inputDetected(menuButtonSprite, menuButtonX, menuButtonY)) {
-//            System.out.println("menu");
-//        }
-//        if (inputDetected(creditButtonSprite, creditButtonX, creditButtonY)) {
-//            System.out.println("credit");
-//        }
     }
     public void updateBirds()
     {

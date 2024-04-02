@@ -55,7 +55,7 @@ public class PlayerPlane extends Plane
         {
             currentSprite.draw(batch);
             currentSprite.setPosition(x, y);
-            currentSprite.setScale(4.0f);
+            currentSprite.setScale(8.0f);
         }
     }
 

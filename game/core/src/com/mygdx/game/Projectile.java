@@ -56,10 +56,11 @@ public class Projectile
         }
     }
 
-//    public boolean hitPlane(Rectangle rect)
-//    {
-//
-//    }
+    public boolean hitPlane(Rectangle rect)
+    {
+        if (bulletSprite.getBoundingRectangle().overlaps(rect)) return true;
+        return false;
+    }
 
     public void render(SpriteBatch batch)
     {

@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Cursor;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -13,6 +14,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 import java.util.Random;
+import com.badlogic.gdx.audio.Music;
 
 import java.util.ArrayList;
 
@@ -22,6 +24,10 @@ public class GameScreen implements Screen {
     public static int width = Gdx.graphics.getWidth(); // const since it doesnt change
     public static int height = Gdx.graphics.getHeight(); // const since it doesnt change
     private Random r = new Random();
+
+    private Music music = Gdx.audio.newMusic(Gdx.files.internal("Music/gameMusic.mp3"));
+    private Sound shootSound = Gdx.audio.newSound(Gdx.files.internal("Music/shootSound.mp3"));
+    private Sound reloadSound = Gdx.audio.newSound(Gdx.files.internal("Music/reloadSound.mp3"));
 //    private OrthogonalTiledMapRenderer tiledMapRenderer;
 //    private TiledMap gamea;
     private Sprite gameBackground = new Sprite(new Texture(Gdx.files.internal("Desert_Map.png"))); // Change to game background
@@ -30,6 +36,7 @@ public class GameScreen implements Screen {
     public static final double SHOOT_WAIT_TIME = 0.5; // If I'm not lazy enough ill change all the finals so they are capital
     public static final double RELOAD_WAIT_TIME = 3.0;
 
+    private boolean reloading = false;
     private double shootTimer;
     private double reloadTimer;
     private float backgroundOffset = 0;
@@ -46,11 +53,11 @@ public class GameScreen implements Screen {
     // adds enemy planes to an arraylist of enemy planes that draw out the enemy planes onto the screen
     // removes enemy planes once they're dead
     private EnemyPlane[][] enemyPlanes1 = {
-            {new EnemyNormalPlane(), new EnemyNormalPlane(), new EnemyNormalPlane()},
-            {new EnemyNormalPlane(), new EnemyTankPlane(), new EnemyNormalPlane(), new EnemyTankPlane()},
-            {new EnemyGlassCannon(), new EnemyTankPlane(), new EnemyTankPlane(), new EnemyGlassCannon()},
-            {new EnemyNormalPlane(), new EnemyNormalPlane(), new EnemyNormalPlane()},
-            {new EnemyTankPlane(), new EnemyTankPlane(), new EnemyTankPlane(), new EnemyTankPlane()},
+            {new EnemyNormalPlane(), new EnemyNormalPlane(), new EnemyNormalPlane(), new EnemyNormalPlane()},
+            {new EnemyNormalPlane(), new EnemyTankPlane(), new EnemyTankPlane(), new EnemyGlassCannon()},
+            {new EnemyGlassCannon(), new EnemyTankPlane(), new EnemyTankPlane(), new EnemyGlassCannon(), new EnemyNormalPlane()},
+            {new EnemyNormalPlane(), new EnemyNormalPlane(), new EnemyNormalPlane(), new EnemyTankPlane()},
+            {new EnemyTankPlane(), new EnemyTankPlane(), new EnemyTankPlane(), new EnemyTankPlane(), new EnemyNormalPlane()},
             {new EnemyTankPlane(), new EnemyTankPlane(), new EnemyTankPlane(), new EnemyTankPlane()},
             {new EnemyGlassCannon(), new EnemyGlassCannon(), new EnemyGlassCannon()}};
 
@@ -66,6 +73,12 @@ public class GameScreen implements Screen {
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.None); // We dont want the cursor to show in the game
         scoreFont = new BitmapFont(Gdx.files.internal("fonts/score.fnt"));
         gameBackground = new Sprite(new Texture(Gdx.files.internal("Desert_Map.png")));
+
+        music.setLooping(true);
+        music.setVolume(0.35f);
+        music.play();
+
+
 //        gameBackground = new TmxMapLoader().load("maps/Desert_Map.tmx");
 //        tiledMapRenderer = new OrthogonalTiledMapRenderer(gameBackground);
     }
@@ -85,15 +98,16 @@ public class GameScreen implements Screen {
             System.out.println("shooting"); // this is test
             if (plane.playerShoot()) {
                 shootTimer = 0;
+                shootSound.play(0.07f);
                 playerProjectiles.add(new Projectile(playerProjectileSprite, (int) plane.getPlaneSprite().getX() - 7, (int) plane.getPlaneSprite().getY() - 12, false));
                 playerProjectiles.add(new Projectile(playerProjectileSprite, (int) plane.getPlaneSprite().getX() - 48, (int) plane.getPlaneSprite().getY() + 4, false));
                 playerProjectiles.add(new Projectile(playerProjectileSprite, (int) plane.getPlaneSprite().getX() - 89, (int) plane.getPlaneSprite().getY() - 12, false));
-
             }
         }
 
         if (plane.getAmmo() <= 0)
         {
+            if (reloadTimer == 0) reloadSound.play(0.4f);
             reloadTimer += delta;
             if (reloadTimer > RELOAD_WAIT_TIME)
             {
@@ -237,11 +251,17 @@ public class GameScreen implements Screen {
         for (Projectile projectile: playerProjectiles) {
             for (EnemyPlane[] enemyPlanes: enemyPlanes1) {
                 for (EnemyPlane enemyPlane: enemyPlanes) {
-                    Sprite projectileSprite = projectile.getBulletSprite();
+//                    Sprite projectileSprite = projectile.getBulletSprite();
                     Sprite enemySprite = enemyPlane.getPlaneSprite();
-                    if (new Rectangle(projectileSprite.getX(), projectileSprite.getY(), projectileSprite.getWidth(), projectileSprite.getHeight()).overlaps(new Rectangle(enemySprite.getX(), enemySprite.getY(), enemySprite.getWidth(), enemySprite.getHeight()))) {
+                    if (projectile.hitPlane(enemySprite.getBoundingRectangle())) {
                         enemyPlane.setHit(true);
+
+                        plane.enemyHit(enemyPlane.getX(), enemyPlane.getY(), game.batch);
                         enemyPlane.setY(-1000);
+//                        enemyPlane.getPlaneSprite().getTexture().dispose();
+
+
+
                         projectilesToRemove.add(projectile);
                     }
                 }
@@ -251,6 +271,8 @@ public class GameScreen implements Screen {
             Sprite projectileSprite = projectile.getBulletSprite();
             Sprite planeSprite = plane.getPlaneSprite();
             if (new Rectangle(projectileSprite.getX(), projectileSprite.getY(), projectileSprite.getWidth(), projectileSprite.getHeight()).overlaps(new Rectangle(planeSprite.getX(), planeSprite.getY(), planeSprite.getWidth(), planeSprite.getHeight()))) {
+                music.stop();
+                music.dispose();
                 game.setScreen(new LoseScreen(game));
             }
         }
