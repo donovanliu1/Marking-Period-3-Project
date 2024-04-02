@@ -27,6 +27,8 @@ public class GameScreen implements Screen {
     public static final double SHOOT_WAIT_TIME = 0.4; // If I'm not lazy enough ill change all the finals so they are capital
     private double shootTimer;
     private float backgroundOffset = 0;
+    private float gameBackgroundHeight = gameBackground.getHeight() * (1920/gameBackground.getWidth());
+    private float gameBackgroundWidth = gameBackground.getWidth() * (1920/gameBackground.getWidth());
     ArrayList<Projectile> playerProjectiles = new ArrayList<>();
 
     public GameScreen(final OraclesOdyssey gam) // The create class
@@ -76,11 +78,11 @@ public class GameScreen implements Screen {
         camera.update();
         game.batch.begin();
         backgroundOffset-= 10;
-        if(backgroundOffset % (gameBackground.getHeight() + 1080 * 2) == 0) {
+        if(backgroundOffset % (gameBackgroundHeight) == 0) {
             backgroundOffset = 0;
         }
-        game.batch.draw(gameBackground, 0, backgroundOffset + gameBackground.getHeight(), gameBackground.getWidth() * (1920/gameBackground.getWidth()), gameBackground.getHeight() * (1920/gameBackground.getWidth()));
-        game.batch.draw(gameBackground, 0, backgroundOffset, gameBackground.getWidth() * (1920/gameBackground.getWidth()), gameBackground.getHeight() * (1920/gameBackground.getWidth()));
+        game.batch.draw(gameBackground, 0, backgroundOffset + gameBackgroundHeight, gameBackgroundWidth, gameBackgroundHeight);
+        game.batch.draw(gameBackground, 0, backgroundOffset, gameBackgroundWidth, gameBackgroundHeight);
         for (Projectile projectile: playerProjectiles) {
             projectile.render(game.batch);
         }
