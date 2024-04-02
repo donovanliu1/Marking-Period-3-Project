@@ -40,7 +40,7 @@ public class GameScreen implements Screen {
     private double stateTime = 0;
     public final static double TIME_BETWEEN_SPAWNS = 10.0;
     BitmapFont scoreFont;
-    int wave = 0;
+    public static int wave = 1;
 
     // this is used for the levels - levels are premade
     // adds enemy planes to an arraylist of enemy planes that draw out the enemy planes onto the screen
