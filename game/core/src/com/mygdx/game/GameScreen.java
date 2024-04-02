@@ -19,22 +19,40 @@ public class GameScreen implements Screen {
     private OrthographicCamera camera;
     public static int width = Gdx.graphics.getWidth(); // const since it doesnt change
     public static int height = Gdx.graphics.getHeight(); // const since it doesnt change
-    private OrthogonalTiledMapRenderer tiledMapRenderer;
+//    private OrthogonalTiledMapRenderer tiledMapRenderer;
 //    private TiledMap gamea;
     private Sprite gameBackground = new Sprite(new Texture(Gdx.files.internal("Desert_Map.png"))); // Change to game background
-    private PlayerPlane plane = new PlayerPlane(100, 100, 100, 100);
+    private PlayerPlane plane = new PlayerPlane(5, 100, 100, 100);
 
-    public static final double SHOOT_WAIT_TIME = 0.3; // If I'm not lazy enough ill change all the finals so they are capital
+    public static final double SHOOT_WAIT_TIME = 0.25; // If I'm not lazy enough ill change all the finals so they are capital
+    public static final double RELOAD_WAIT_TIME = 3.0;
+
     private double shootTimer;
+    private double reloadTimer;
     private float backgroundOffset = 0;
     private float gameBackgroundHeight = gameBackground.getHeight() * (1920/gameBackground.getWidth());
     private float gameBackgroundWidth = gameBackground.getWidth() * (1920/gameBackground.getWidth());
-    ArrayList<Projectile> playerProjectiles = new ArrayList<>();
+    private ArrayList<Projectile> playerProjectiles = new ArrayList<>();
+    private ArrayList<Projectile> enemyProjectiles = new ArrayList<>();
+
+
+    // this is used for the levels - levels are premade
+    // adds enemy planes to an arraylist of enemy planes that draw out the enemy planes onto the screen
+    // removes enemy planes once they're dead
+    private EnemyPlane[][] enemyPlanes1 = {
+            {new EnemyNormalPlane(), new EnemyNormalPlane(), new EnemyNormalPlane()},
+            {new EnemyNormalPlane(), new EnemyTankPlane(), new EnemyNormalPlane(), new EnemyTankPlane()},
+            {new EnemyGlassCannon(), new EnemyTankPlane(), new EnemyTankPlane(), new EnemyGlassCannon()},
+            {new EnemyGlassCannon(), new EnemyGlassCannon(), new EnemyGlassCannon()},
+            {new EnemyNormalPlane(), new EnemyTankPlane(), new EnemyTankPlane()}};
+
+    private ArrayList<EnemyPlane> currentEnemies = new ArrayList<>();
 
     public GameScreen(final OraclesOdyssey gam) // The create class
     {
         this.game = gam;
         shootTimer = 0;
+        reloadTimer = 0;
         camera = new OrthographicCamera(width, height);
         camera.setToOrtho(false, width, height);
         Gdx.graphics.setSystemCursor(Cursor.SystemCursor.None); // We dont want the cursor to show in the game
@@ -55,15 +73,27 @@ public class GameScreen implements Screen {
 
         //Shooting
         shootTimer += delta;
-        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && shootTimer > SHOOT_WAIT_TIME){
+        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) && shootTimer > SHOOT_WAIT_TIME && plane.getAmmo() > 0) {
             System.out.println("shooting"); // this is test
-            if (plane.shootPlayer()) {
+            if (plane.playerShoot()) {
                 shootTimer = 0;
-                playerProjectiles.add(new Projectile(playerProjectileSprite, (int) plane.getPlaneSprite().getX() - 10, (int) plane.getPlaneSprite().getY() - 12, false));
-                playerProjectiles.add(new Projectile(playerProjectileSprite, (int) plane.getPlaneSprite().getX() - 56, (int) plane.getPlaneSprite().getY() + 4, false));
-                playerProjectiles.add(new Projectile(playerProjectileSprite, (int) plane.getPlaneSprite().getX() - 100, (int) plane.getPlaneSprite().getY() - 12, false));
+                playerProjectiles.add(new Projectile(playerProjectileSprite, (int) plane.getPlaneSprite().getX() - 7, (int) plane.getPlaneSprite().getY() - 12, false));
+                playerProjectiles.add(new Projectile(playerProjectileSprite, (int) plane.getPlaneSprite().getX() - 48, (int) plane.getPlaneSprite().getY() + 4, false));
+                playerProjectiles.add(new Projectile(playerProjectileSprite, (int) plane.getPlaneSprite().getX() - 89, (int) plane.getPlaneSprite().getY() - 12, false));
+
             }
         }
+
+        if (plane.getAmmo() <= 0)
+        {
+            reloadTimer += delta;
+            if (reloadTimer > RELOAD_WAIT_TIME)
+            {
+                plane.setAmmo(plane.getMaxAmmo());
+                reloadTimer = 0;
+            }
+        }
+
         ArrayList<Projectile> projectilesToRemove = new ArrayList<>();
         for (Projectile projectile: playerProjectiles) {
             projectile.update(delta);
@@ -80,6 +110,7 @@ public class GameScreen implements Screen {
         if(backgroundOffset % (gameBackgroundHeight) == 0) {
             backgroundOffset = 0;
         }
+        plane.enemyHit(10, 10, game.batch);
         game.batch.draw(gameBackground, 0, backgroundOffset + gameBackgroundHeight, gameBackgroundWidth, gameBackgroundHeight);
         game.batch.draw(gameBackground, 0, backgroundOffset, gameBackgroundWidth, gameBackgroundHeight);
         for (Projectile projectile: playerProjectiles) {

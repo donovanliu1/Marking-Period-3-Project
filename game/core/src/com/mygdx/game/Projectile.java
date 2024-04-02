@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 
 // PROJECTILES WILL NOT HAVE DAMAGE. DAMAGE WILL BE BASED ON SHIP TYPE
 public class Projectile
@@ -15,10 +16,11 @@ public class Projectile
     public Projectile(Sprite bulletSprite, int x, int y, boolean isEnemyBullet)
     {
         this.bulletSprite = bulletSprite;
-        this.bulletSprite.setSize(bulletSprite.getWidth()/2, bulletSprite.getHeight()/2);
+        this.bulletSprite.setScale(0.7f);
         this.x = x;
         this.y = y;
         if (isEnemyBullet) speed *= -1;
+        this.bulletSprite.setPosition(x, y);
     }
     // deltaTime used to limit amount of bullets on screen
     // might have to make this a separate class for just player projectile
@@ -28,6 +30,12 @@ public class Projectile
             remove = true;
         }
     }
+
+//    public boolean hitPlane(Rectangle rect)
+//    {
+//
+//    }
+
     public void render(SpriteBatch batch)
     {
         bulletSprite.draw(batch);
@@ -35,7 +43,8 @@ public class Projectile
         // it used to be batch.draw(bulletSprite)
     }
 
-    public boolean isRemove() {
+    public boolean isRemove()
+    {
         return remove;
     }
 }

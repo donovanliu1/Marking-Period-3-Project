@@ -5,7 +5,10 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -20,20 +23,28 @@ public class MainMenuScreen implements Screen
     // CHANGE THE BELOW VARIABLES WHEN WE FIND THE SPRITE WE USE
     private Sprite startButtonSprite = new Sprite(new Texture(Gdx.files.internal("startbutton.png")));
     private Sprite startBackgroundSprite = new Sprite(new Texture(Gdx.files.internal("startbackground.jpg")));
-    private Sprite titleSprite = new Sprite(new Texture(Gdx.files.internal("OracleOdyssey.png")));
-    private Sprite menuButtonSprite = new Sprite(new Texture(Gdx.files.internal("startbutton.png")));
-    private Sprite creditButtonSprite = new Sprite(new Texture(Gdx.files.internal("startbutton.png"))); // used to cite sources? idk maybe change to like tutorial
-    private Sprite birdSprite = new Sprite(new Texture(Gdx.files.internal("birdflying/BirdFlying1.png")));
-    private Sprite birdSprite2 = new Sprite(new Texture(Gdx.files.internal("birdflying/BirdFlying1.png")));
-    private Sprite birdSprite3 = new Sprite(new Texture(Gdx.files.internal("birdflying/BirdFlying1.png")));
-    private int titleY = height - 400;
+    private Sprite titleSprite = new Sprite(new Texture(Gdx.files.internal("wip.png")));
+//    private Sprite menuButtonSprite = new Sprite(new Texture(Gdx.files.internal("startbutton.png")));
+//    private Sprite creditButtonSprite = new Sprite(new Texture(Gdx.files.internal("startbutton.png"))); // used to cite sources? idk maybe change to like tutorial
+    private Sprite birdSprite = new Sprite(new Texture(Gdx.files.internal("birdflying/BirdFlying_0.png")));
+    private Sprite birdSprite2 = new Sprite(new Texture(Gdx.files.internal("birdflying/BirdFlying_0.png")));
+    private Sprite birdSprite3 = new Sprite(new Texture(Gdx.files.internal("birdflying/BirdFlying_0.png")));
+    private int titleY = height - 600;
     private int titleX = centerWidth(titleSprite);
     private int startButtonX = centerWidth(startButtonSprite);
-    private int startButtonY = centerHeight(startButtonSprite);
-    private int menuButtonX = centerWidth(menuButtonSprite) - width/4;
-    private int menuButtonY = centerHeight(menuButtonSprite) - height/4;
-    private int creditButtonX = centerWidth(creditButtonSprite) + width/4;
-    private int creditButtonY = centerHeight(creditButtonSprite) - height/4;
+    private int startButtonY = centerHeight(startButtonSprite) - 200;
+//    private int menuButtonX = centerWidth(menuButtonSprite) - width/4;
+//    private int menuButtonY = centerHeight(menuButtonSprite) - height/4;
+//    private int creditButtonX = centerWidth(creditButtonSprite) + width/4;
+//    private int creditButtonY = centerHeight(creditButtonSprite) - height/4;
+
+    private TextureAtlas birdFlying = new TextureAtlas("atlas/birdAtlas.atlas");
+    private TextureAtlas rBirdFlying = new TextureAtlas("atlas/rBirdAtlas.atlas");
+
+    private Animation<TextureRegion> birdAnimation = new Animation<TextureRegion>(0.2f, birdFlying.findRegion("BirdFlying"));
+    private Animation<TextureRegion> rBirdAnimation = new Animation<TextureRegion>(0.2f, rBirdFlying.findRegion("rBirdFlying"));
+    private float stateTime;
+
     private int[][] birdCoords = new int[][]{{centerWidth(birdSprite) + width/2 + 200, centerHeight(birdSprite) - height/4},
             {(int) birdSprite2.getWidth() * -1 - 600, centerHeight(birdSprite2) - height/8},
             {(int) birdSprite3.getWidth() * -1 - 550, centerHeight(birdSprite2) - height/4 + 600}};
@@ -46,6 +57,7 @@ public class MainMenuScreen implements Screen
         game = gam;
         camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         camera.setToOrtho(false, width, height);
+        stateTime = 0f;
     }
     @Override
     public void render(float delta)
@@ -55,7 +67,8 @@ public class MainMenuScreen implements Screen
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin(); // STARTS
         renderBackground(); // METHOD CREATED TO RENDER BACKGROUND
-        renderBirds();
+        renderBirds(); // too much hassle for something that people are only going to see for 2 seconds
+        stateTime += Gdx.graphics.getDeltaTime();
         renderButtons(); // CHECK THE METHOD TO SEE THE RENDERS
         game.batch.end(); // ENDS
         if(Gdx.input.isTouched())
@@ -74,14 +87,17 @@ public class MainMenuScreen implements Screen
     public void renderButtons()
     {
         game.batch.draw(startButtonSprite, startButtonX - startButtonSprite.getWidth(), startButtonY - startButtonSprite.getHeight(), startButtonSprite.getWidth() * 3, startButtonSprite.getHeight() * 3);
-        game.batch.draw(menuButtonSprite, menuButtonX - startButtonSprite.getWidth(), menuButtonY - menuButtonSprite.getHeight(), menuButtonSprite.getWidth() * 3, menuButtonSprite.getHeight() * 3);
-        game.batch.draw(creditButtonSprite, creditButtonX - creditButtonSprite.getWidth(), creditButtonY - creditButtonSprite.getHeight(), creditButtonSprite.getWidth() * 3, creditButtonSprite.getHeight() * 3);
+//        game.batch.draw(menuButtonSprite, menuButtonX - startButtonSprite.getWidth(), menuButtonY - menuButtonSprite.getHeight(), menuButtonSprite.getWidth() * 3, menuButtonSprite.getHeight() * 3);
+//        game.batch.draw(creditButtonSprite, creditButtonX - creditButtonSprite.getWidth(), creditButtonY - creditButtonSprite.getHeight(), creditButtonSprite.getWidth() * 3, creditButtonSprite.getHeight() * 3);
     }
     public void renderBirds()
     {
-        game.batch.draw(birdSprite, birdCoords[0][0], birdCoords[0][1], birdSprite.getWidth() * 8, birdSprite.getHeight() * 8);
-        game.batch.draw(birdSprite2, birdCoords[1][0], birdCoords[1][1], birdSprite2.getWidth() * 8, birdSprite2.getHeight() * 8);
-        game.batch.draw(birdSprite3, birdCoords[2][0], birdCoords[2][1], birdSprite3.getWidth() * 8, birdSprite3.getHeight() * 8);
+        Sprite currentBirdSprite = new Sprite(birdAnimation.getKeyFrame(stateTime));
+        Sprite currentBirdSprite2 = new Sprite(rBirdAnimation.getKeyFrame(stateTime));
+        Sprite currentBirdSprite3 = new Sprite(rBirdAnimation.getKeyFrame(stateTime));
+        game.batch.draw(currentBirdSprite, birdCoords[0][0], birdCoords[0][1], birdSprite.getWidth() * 8, birdSprite.getHeight() * 8);
+        game.batch.draw(currentBirdSprite2, birdCoords[1][0], birdCoords[1][1], birdSprite2.getWidth() * 8, birdSprite2.getHeight() * 8);
+        game.batch.draw(currentBirdSprite3, birdCoords[2][0], birdCoords[2][1], birdSprite3.getWidth() * 8, birdSprite3.getHeight() * 8);
         updateBirds();
         if(birdCoords[0][0] < birdSprite.getWidth() * -1 - 100)
         {
@@ -122,18 +138,23 @@ public class MainMenuScreen implements Screen
     @Override
     public void dispose() {
         startButtonSprite.getTexture().dispose();
-        menuButtonSprite.getTexture().dispose();
+//        menuButtonSprite.getTexture().dispose();
         startBackgroundSprite.getTexture().dispose();
-        creditButtonSprite.getTexture().dispose();
+//        creditButtonSprite.getTexture().dispose();
+        birdSprite.getTexture().dispose();
+        birdSprite2.getTexture().dispose();
+        birdSprite3.getTexture().dispose();
     }
     public int centerWidth(Sprite sprite, int dilation) {
         return (int) ((width - sprite.getWidth())/2) * dilation;
     }
     public int centerHeight(Sprite sprite, int dilation) {
         return (int) ((height - sprite.getHeight())/2) * dilation;
-    }public int centerWidth(Sprite sprite) {
-    return (int) ((width - sprite.getWidth())/2);
-}
+    }
+    public int centerWidth(Sprite sprite)
+    {
+        return (int) ((width - sprite.getWidth())/2);
+    }
     public int centerHeight(Sprite sprite) {
         return (int) ((height - sprite.getHeight())/2);
     }
@@ -150,12 +171,12 @@ public class MainMenuScreen implements Screen
             game.setScreen(new GameScreen(game));
             dispose();
         }
-        if (inputDetected(menuButtonSprite, menuButtonX, menuButtonY)) {
-            System.out.println("menu");
-        }
-        if (inputDetected(creditButtonSprite, creditButtonX, creditButtonY)) {
-            System.out.println("credit");
-        }
+//        if (inputDetected(menuButtonSprite, menuButtonX, menuButtonY)) {
+//            System.out.println("menu");
+//        }
+//        if (inputDetected(creditButtonSprite, creditButtonX, creditButtonY)) {
+//            System.out.println("credit");
+//        }
     }
     public void updateBirds()
     {

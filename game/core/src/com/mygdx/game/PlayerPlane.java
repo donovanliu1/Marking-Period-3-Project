@@ -24,7 +24,7 @@ public class PlayerPlane extends Plane
         stateTime = 0f;
     }
 
-    public boolean shootPlayer() // we are using this
+    public boolean playerShoot() // we are using this
     {
         if (ammo > 0)
         {
@@ -63,6 +63,11 @@ public class PlayerPlane extends Plane
     public void setPlaneSprite(String name)
     {
         super.setPlaneSprite(name);
+    }
+
+    public void setAmmo(int ammo)
+    {
+        this.ammo = ammo;
     }
 
     public void setMaxAmmo(int max)
