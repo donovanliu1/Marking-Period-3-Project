@@ -8,4 +8,13 @@ public class EnemyNormalPlane extends EnemyPlane
         setPlaneSprite("ship_0012");
         setBulletSprite("enemyBulletNormal");
     }
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

@@ -9,4 +9,13 @@ public class PlayerTankPlane extends PlayerPlane
         setPlaneSprite("ship_0002");
         setBulletSprite("playerBulletSmall");
     }
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

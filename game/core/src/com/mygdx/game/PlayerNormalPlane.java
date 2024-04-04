@@ -9,4 +9,13 @@ public class PlayerNormalPlane extends PlayerPlane // please find a better name 
         setPlaneSprite("ship_0000");
         setBulletSprite("playerBulletNormal");
     }
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

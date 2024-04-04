@@ -34,6 +34,15 @@ public class OraclesOdyssey extends Game {
 		batch.dispose();
 		font.dispose();
 	}
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj);
+	}
+
+	@Override
+	public String toString() {
+		return super.toString();
+	}
 //	@Override
 //	public void create () {
 //		batch = new SpriteBatch();

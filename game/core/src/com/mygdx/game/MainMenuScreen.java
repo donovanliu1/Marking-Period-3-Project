@@ -182,4 +182,13 @@ public class MainMenuScreen implements Screen
         birdCoords[1][0] += 8;
         birdCoords[2][0] += 12;
     }
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

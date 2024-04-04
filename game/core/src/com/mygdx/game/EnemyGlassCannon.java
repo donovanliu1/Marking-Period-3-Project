@@ -8,4 +8,14 @@ public class EnemyGlassCannon extends EnemyPlane
         setPlaneSprite("ship_0019");
         setBulletSprite("enemyBulletStrong");
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

@@ -39,4 +39,13 @@ public class PlaneSelectScreen implements Screen
     public void dispose() {
 
     }
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

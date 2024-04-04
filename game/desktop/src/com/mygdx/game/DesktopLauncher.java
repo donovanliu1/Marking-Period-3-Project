@@ -14,5 +14,14 @@ public class DesktopLauncher {
 		config.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode());
 		new Lwjgl3Application(new OraclesOdyssey(), config);
 	}
+	@Override
+	public boolean equals(Object obj) {
+		return super.equals(obj);
+	}
+
+	@Override
+	public String toString() {
+		return super.toString();
+	}
 
 }
